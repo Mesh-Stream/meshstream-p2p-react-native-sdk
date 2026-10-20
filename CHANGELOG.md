@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.1.0 - Unreleased
+## 1.0.0
 
 - Unified Android and iOS React Native bridges over the respective native MeshStream SDKs.
 - Multi-client and multi-session lifecycle API.

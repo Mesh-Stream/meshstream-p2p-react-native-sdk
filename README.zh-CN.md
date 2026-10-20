@@ -115,6 +115,14 @@ subscription.remove();
 
 这个包是统一的 JavaScript 层，不是将 Android SDK 重新打包：
 
+### 版本说明
+
+- `react-native-meshstream` 使用独立的 React Native 包版本；当前首发版本为 `1.0.0`。
+- Android 桥接使用独立的原生依赖：`io.meshstream:meshstream-android-sdk:1.0.2`。
+- iOS 桥接使用独立的原生依赖：`MeshStreamKit >= 1.0.0`。
+
+升级 React Native 包不会隐式升级任一原生 SDK。
+
 - Android 从 MeshStream Maven 仓库解析 `io.meshstream:meshstream-android-sdk:1.0.2`。
 - iOS 通过 CocoaPods 解析 `MeshStreamKit >= 1.0.0`。
 

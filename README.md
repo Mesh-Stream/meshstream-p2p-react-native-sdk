@@ -115,6 +115,14 @@ The binding proxies the Android SDK. HLS (`m3u8`), DASH (`mpd`), MP4, and MP3 ca
 
 The package is a unified JavaScript layer, not an Android SDK repackaged for React Native:
 
+### Versioning
+
+- `react-native-meshstream` follows its own React Native package version. This release is `1.0.0`.
+- The Android bridge keeps its independent native dependency: `io.meshstream:meshstream-android-sdk:1.0.2`.
+- The iOS bridge keeps its independent native dependency: `MeshStreamKit >= 1.0.0`.
+
+Updating the React Native package does not implicitly upgrade either native SDK.
+
 - Android resolves `io.meshstream:meshstream-android-sdk:1.0.2` from the MeshStream Maven repository.
 - iOS resolves `MeshStreamKit >= 1.0.0` through CocoaPods.
 

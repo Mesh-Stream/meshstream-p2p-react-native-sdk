@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = 'MeshStreamP2P'
-  s.version      = '0.1.0'
+  s.version      = '1.0.0'
   s.summary      = 'MeshStream P2P playback URL bridge for React Native.'
   s.homepage     = 'https://github.com/Mesh-Stream/meshstream-p2p-react-native-sdk'
   s.license      = { :type => 'Apache-2.0' }
