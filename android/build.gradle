@@ -1,0 +1,23 @@
+buildscript {
+  ext {
+    kotlinVersion = project.findProperty('kotlinVersion') ?: '1.9.25'
+  }
+}
+
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+
+android {
+  namespace 'net.meshstream.reactnative'
+  compileSdkVersion 35
+
+  defaultConfig {
+    minSdkVersion 24
+  }
+}
+
+dependencies {
+  implementation 'com.facebook.react:react-android'
+  implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+  implementation 'io.meshstream:meshstream-android-sdk:1.0.2'
+}

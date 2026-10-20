@@ -1,0 +1,17 @@
+pluginManagement { includeBuild("../node_modules/@react-native/gradle-plugin") }
+plugins { id("com.facebook.react.settings") }
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
+    repositories {
+        google()
+        mavenCentral()
+        maven {
+            url = uri("https://pub-61830e1369904d19af505ff74fd55ba4.r2.dev/maven")
+            content { includeGroup("io.meshstream") }
+        }
+    }
+}
+extensions.configure(com.facebook.react.ReactSettingsExtension){ ex -> ex.autolinkLibrariesFromCommand() }
+rootProject.name = 'MeshStreamRnDemo'
+include ':app'
+includeBuild('../node_modules/@react-native/gradle-plugin')

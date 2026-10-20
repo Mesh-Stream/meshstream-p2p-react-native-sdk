@@ -1,0 +1,14 @@
+Pod::Spec.new do |s|
+  s.name         = 'MeshStreamP2P'
+  s.version      = '0.1.0'
+  s.summary      = 'MeshStream P2P playback URL bridge for React Native.'
+  s.homepage     = 'https://github.com/Mesh-Stream/meshstream-p2p-react-native-sdk'
+  s.license      = { :type => 'Apache-2.0' }
+  s.author       = { 'MeshStream' => 'support@meshstream.net' }
+  s.platforms    = { :ios => '13.0' }
+  s.source       = { :git => 'https://github.com/Mesh-Stream/meshstream-p2p-react-native-sdk.git', :tag => s.version.to_s }
+  s.source_files = 'ios/**/*.{h,m}'
+  s.dependency 'React-Core'
+  s.dependency 'MeshStreamKit', '>= 1.0.0'
+  s.frameworks = 'Foundation', 'Network', 'Security'
+end
