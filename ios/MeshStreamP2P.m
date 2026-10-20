@@ -1,7 +1,7 @@
 #import "MeshStreamP2P.h"
+#import "MeshStreamP2PValidation.h"
 #import <React/RCTBridgeModule.h>
 #import <MeshStreamKit/MeshStreamKit.h>
-#import <objc/message.h>
 
 static NSString * const MeshStreamEventName = @"MeshStreamP2P:event";
 
@@ -124,7 +124,7 @@ RCT_REMAP_METHOD(createClient,
                  createClientWithConfig:(NSDictionary *)config
                  resolver:(RCTPromiseResolveBlock)resolve
                  rejecter:(RCTPromiseRejectBlock)reject) {
-    NSString *key = [config[@"key"] isKindOfClass:NSString.class] ? [config[@"key"] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet] : @"";
+    NSString *key = MeshStreamTrimmedString(config[@"key"]) ?: @"";
     if (key.length == 0) {
         reject(@"MESHSTREAM_CREATE_CLIENT_FAILED", @"key must not be empty", nil);
         return;
@@ -151,16 +151,15 @@ RCT_EXPORT_METHOD(createPlaybackSession:(NSString *)clientId
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject) {
     MeshStreamBridgeClient *bridgeClient = [self bridgeClient:clientId];
-    NSString *urlText = [options[@"url"] isKindOfClass:NSString.class] ? options[@"url"] : nil;
-    NSURL *url = [NSURL URLWithString:urlText];
+    NSURL *url = MeshStreamHTTPURLFromValue(options[@"url"]);
     if (bridgeClient == nil || url == nil) {
         reject(@"MESHSTREAM_CREATE_SESSION_FAILED", bridgeClient == nil ? @"Unknown or closed MeshStream client." : @"options.url must be a valid URL.", nil);
         return;
     }
     P2PPlaybackOptions *nativeOptions = [P2PPlaybackOptions new];
-    if ([options[@"contentId"] isKindOfClass:NSString.class]) nativeOptions.contentId = options[@"contentId"];
-    if ([options[@"mimeType"] isKindOfClass:NSString.class]) nativeOptions.mimeType = options[@"mimeType"];
-    if ([options[@"originHeaders"] isKindOfClass:NSDictionary.class]) nativeOptions.originHeaders = options[@"originHeaders"];
+    nativeOptions.contentId = MeshStreamTrimmedString(options[@"contentId"]);
+    nativeOptions.mimeType = MeshStreamTrimmedString(options[@"mimeType"]);
+    nativeOptions.originHeaders = MeshStreamStringHeaders(options[@"originHeaders"]);
     NSError *error = nil;
     PlaybackSession *session = [bridgeClient.client createPlaybackSessionWithURL:url options:nativeOptions error:&error];
     if (session == nil) {
@@ -237,7 +236,7 @@ RCT_EXPORT_METHOD(closeClient:(NSString *)clientId resolver:(RCTPromiseResolveBl
             [self removePendingEventsForNativeSessionId:session.sessionId];
             [session close];
         }
-        [self closeNativeClient:bridgeClient.client];
+        [bridgeClient.client close];
         bridgeClient.client = nil;
     }
     resolve(nil);
@@ -249,6 +248,10 @@ RCT_EXPORT_METHOD(closeClient:(NSString *)clientId resolver:(RCTPromiseResolveBl
 
 - (PlaybackSession *)sessionForClient:(NSString *)clientId sessionId:(NSString *)sessionId reject:(RCTPromiseRejectBlock)reject {
     MeshStreamBridgeClient *bridgeClient = [self bridgeClient:clientId];
+    if (bridgeClient == nil) {
+        reject(@"MESHSTREAM_SESSION_OPERATION_FAILED", @"Unknown or closed MeshStream client.", nil);
+        return nil;
+    }
     PlaybackSession *session;
     @synchronized (bridgeClient.sessions) { session = bridgeClient.sessions[sessionId]; }
     if (session == nil) reject(@"MESHSTREAM_SESSION_OPERATION_FAILED", @"Unknown or closed MeshStream playback session.", nil);
@@ -308,13 +311,6 @@ RCT_EXPORT_METHOD(closeClient:(NSString *)clientId resolver:(RCTPromiseResolveBl
     @synchronized (self.pendingEvents) { [self.pendingEvents removeObjectForKey:nativeSessionId]; }
 }
 
-- (void)closeNativeClient:(P2PClient *)client {
-    SEL closeSelector = NSSelectorFromString(@"close");
-    if ([client respondsToSelector:closeSelector]) {
-        ((void (*)(id, SEL))objc_msgSend)(client, closeSelector);
-    }
-}
-
 - (void)onPlaybackPreparedWithSessionId:(NSString *)sessionId playbackUrl:(NSURL *)playbackUrl { [self emitForNativeSessionId:sessionId type:@"playbackPrepared" extras:@{ @"playbackUrl": playbackUrl.absoluteString ?: @"" }]; }
 - (void)onStatisticsWithSessionId:(NSString *)sessionId stats:(P2PStats *)stats { [self emitForNativeSessionId:sessionId type:@"statistics" extras:@{ @"statistics": MeshStreamStatsMap(stats) }]; }
 - (void)onPeerCountChangedWithSessionId:(NSString *)sessionId peerCount:(NSInteger)peerCount { [self emitForNativeSessionId:sessionId type:@"peerCountChanged" extras:@{ @"peerCount": @(peerCount) }]; }
@@ -332,7 +328,7 @@ RCT_EXPORT_METHOD(closeClient:(NSString *)clientId resolver:(RCTPromiseResolveBl
         [bridgeClient.client removeEventListener:self];
         for (PlaybackSession *session in bridgeClient.sessions.allValues) [session close];
         [bridgeClient.sessions removeAllObjects];
-        [self closeNativeClient:bridgeClient.client];
+        [bridgeClient.client close];
         bridgeClient.client = nil;
     }
     @synchronized (self.clients) { [self.clients removeAllObjects]; }

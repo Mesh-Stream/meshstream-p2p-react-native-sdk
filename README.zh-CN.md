@@ -31,7 +31,7 @@ repositories {
 }
 ```
 
-如果接入 iOS，请在应用的 `ios` 目录执行 `pod install`。iOS 会独立解析 `MeshStreamKit` Pod，不使用 Android 产物。两个平台安装依赖后都需要重新编译原生工程。
+接入 iOS 时，bridge 会解析公开的 `MeshStreamKit 1.0.2` CocoaPod。安装 npm 包后，请在应用的 `ios` 目录执行 `pod install --repo-update` 并重新编译原生工程；不要添加本地 `MeshStreamKit` Pod 路径，也不需要手动嵌入 XCFramework。
 
 ## 基础接入
 
@@ -71,7 +71,7 @@ await next.preload();
 // 仅在下一条真正播放时，将 next.playbackUrl 交给播放器。
 ```
 
-应用侧不要调用 `P2pSdk.shutdown()`。本绑定只关闭它创建的 client 或 session，避免影响同一应用中的其他播放器实例。
+请关闭本绑定创建的 `MeshStream` client 或 session，而不是全局关闭原生 SDK；这样不会影响同一进程内的其他 React Native 播放器实例。
 
 ## 播放器状态上报
 
@@ -80,9 +80,6 @@ await next.preload();
 ```ts
 await session.updateBufferedDurationMs(bufferedDurationMs);
 await session.updateCurrentPositionMs(currentPositionMs);
-
-// 仅直播场景：当前播放点到直播边缘的距离。
-await session.updateLiveEdgeOffsetMs(liveEdgeOffsetMs);
 ```
 
 ## 事件、状态与诊断
@@ -109,7 +106,7 @@ subscription.remove();
 
 ## 支持的媒体格式
 
-底层使用 Android SDK。可通过 `mimeType` 声明 HLS（`m3u8`）、DASH（`mpd`）、MP4、MP3；签名 URL 或播放地址会变化时，应传入稳定的 `contentId`。最终格式支持能力仍以所选 React Native 播放器为准。
+底层调用平台原生 SDK。可通过 `mimeType` 声明 HLS（`m3u8`）、DASH（`mpd`）、MP4、MP3；签名 URL 或播放地址会变化时，应传入稳定的 `contentId`。最终格式支持能力仍以所选 React Native 播放器为准。
 
 ## 原生依赖
 
@@ -124,6 +121,6 @@ subscription.remove();
 升级 React Native 包不会隐式升级任一原生 SDK。
 
 - Android 从 MeshStream Maven 仓库解析 `io.meshstream:meshstream-android-sdk:1.0.2`。
-- iOS 通过 CocoaPods 解析 `MeshStreamKit >= 1.0.0`。
+- iOS 通过 CocoaPods 解析公开的 `MeshStreamKit 1.0.2`。
 
 两个 bridge 都保证 client/session 隔离。关闭某一个 client 只会关闭其所属会话，不会中断同一进程中的其他 React Native 播放器。

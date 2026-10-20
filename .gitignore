@@ -8,5 +8,6 @@ android/.cxx/
 ios/Pods/
 example/node_modules/
 example/*.log
+example/ios/*.xcworkspace/
 example/android/.gradle/
 example/android/app/build/

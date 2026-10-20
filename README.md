@@ -31,7 +31,7 @@ repositories {
 }
 ```
 
-For iOS, run `pod install` from the app's `ios` directory after installation. The pod bridge resolves `MeshStreamKit` independently; it does not use Android artifacts. Rebuild the native app after installing either platform dependency.
+For iOS, the bridge resolves the public `MeshStreamKit 1.0.2` CocoaPod. After installation, run `pod install --repo-update` from the app's `ios` directory and rebuild the native app. Do not add a local `MeshStreamKit` pod path or embed its XCFramework yourself.
 
 ## Basic usage
 
@@ -71,7 +71,7 @@ await next.preload();
 // Give next.playbackUrl to the player only when it becomes active.
 ```
 
-Do not call `P2pSdk.shutdown()` from an app integration. The binding closes only the client or session it owns, which keeps other React Native players isolated.
+Close the `MeshStream` client or session created by this binding instead of shutting down a native SDK globally. This keeps other React Native players in the same process isolated.
 
 ## Player telemetry
 
@@ -80,9 +80,6 @@ Forward state from the active player at a low frequency. These methods do not ca
 ```ts
 await session.updateBufferedDurationMs(bufferedDurationMs);
 await session.updateCurrentPositionMs(currentPositionMs);
-
-// For live streams only: current distance from the live edge.
-await session.updateLiveEdgeOffsetMs(liveEdgeOffsetMs);
 ```
 
 ## Events, status, and diagnostics
@@ -109,7 +106,7 @@ Available event types: `peerCountChanged`, `playbackPrepared`, `p2pReady`, `p2pU
 
 ## Supported media
 
-The binding proxies the Android SDK. HLS (`m3u8`), DASH (`mpd`), MP4, and MP3 can be declared through `mimeType`; provide a stable `contentId` for any URL that rotates credentials. Your chosen React Native player must independently support the source format.
+The binding forwards to the platform-native SDK. HLS (`m3u8`), DASH (`mpd`), MP4, and MP3 can be declared through `mimeType`; provide a stable `contentId` for any URL that rotates credentials. Your chosen React Native player must independently support the source format.
 
 ## Native dependencies
 
@@ -124,6 +121,6 @@ The package is a unified JavaScript layer, not an Android SDK repackaged for Rea
 Updating the React Native package does not implicitly upgrade either native SDK.
 
 - Android resolves `io.meshstream:meshstream-android-sdk:1.0.2` from the MeshStream Maven repository.
-- iOS resolves `MeshStreamKit >= 1.0.0` through CocoaPods.
+- iOS resolves the public `MeshStreamKit 1.0.2` CocoaPod.
 
 Both bridges maintain client/session isolation. Closing a client only closes its own sessions and never interrupts another React Native player in the same process.

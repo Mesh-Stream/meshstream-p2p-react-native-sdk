@@ -1,5 +1,5 @@
-const path = require('path');
 const {getDefaultConfig, mergeConfig} = require('@react-native/metro-config');
+const path = require('node:path');
 
 /**
  * Metro configuration
@@ -10,13 +10,16 @@ const {getDefaultConfig, mergeConfig} = require('@react-native/metro-config');
 const sdkRoot = path.resolve(__dirname, '..');
 
 const config = {
-  // The example consumes the SDK through "file:.." during local development.
-  // Metro must watch the symlink target and resolve the package from that root.
+  // The example consumes the SDK through its local file:.. dependency.
   watchFolders: [sdkRoot],
   resolver: {
     extraNodeModules: {
       'react-native-meshstream': sdkRoot,
     },
+    disableHierarchicalLookup: true,
+    nodeModulesPaths: [
+      path.join(__dirname, 'node_modules'),
+    ],
   },
 };
 

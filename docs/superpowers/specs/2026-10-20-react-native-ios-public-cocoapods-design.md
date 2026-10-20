@@ -12,15 +12,15 @@ P2P setup is unavailable.
 This spans two repositories and must be released in this order:
 
 1. In the Apple SDK repository (`derek-anyRTC/P2PCDN`), release public
-   `MeshStreamKit` **1.0.1**.
+   `MeshStreamKit` **1.0.2**.
 2. In this React Native SDK repository, depend on that released pod and ship
    the completed iOS bridge.
 
-`MeshStreamKit 1.0.0` is publicly available but does not declare a
+`MeshStreamKit 1.0.0` did not declare a
 per-client close operation. Calling an undeclared selector from the RN bridge
 is not an acceptable public-SDK integration and will be removed.
 
-## Apple SDK 1.0.1
+## Apple SDK 1.0.2
 
 Add `- (void)close` to the public `P2PClient` API. The method is idempotent,
 stops all playback sessions owned by that client, removes event delivery, and
@@ -29,9 +29,9 @@ returns without waiting for network teardown. It must not call global
 clients.
 
 Build the standard signed `MeshStreamKit.xcframework`, package it as the
-versioned `1.0.1` archive, and publish a public CocoaPods trunk spec that:
+versioned `1.0.2` archive, and publish a public CocoaPods trunk spec that:
 
-- names the pod `MeshStreamKit` at version `1.0.1`;
+- names the pod `MeshStreamKit` at version `1.0.2`;
 - pins the archive URL and SHA-256;
 - exposes the iOS 13.0 binary XCFramework;
 - lists Foundation, Network, and Security frameworks.
@@ -41,7 +41,7 @@ revision, so the declared `close` method is linked at runtime.
 
 ## React Native bridge
 
-The RN podspec will require `MeshStreamKit` exactly at `1.0.1`. This makes the
+The RN podspec will require `MeshStreamKit` exactly at `1.0.2`. This makes the
 bridge's native ABI reproducible and lets CocoaPods resolve it from the public
 Specs repository during normal React Native autolinking; no local pod path,
 vendored XCFramework, or private spec repo is used.
@@ -75,7 +75,7 @@ listener, and call the documented `[P2PClient close]`. The bridge will not use
 ## Example and documentation
 
 The existing React Native example remains the integration target. A clean
-`pod install --repo-update` must resolve `MeshStreamKit 1.0.1` from the public
+`pod install --repo-update` must resolve `MeshStreamKit 1.0.2` from the public
 CocoaPods Specs CDN through RN autolinking. The README will state the minimum
 iOS version, the public pod requirement, and that consumers rebuild their iOS
 app after installing/upgrading the npm package.
@@ -89,14 +89,14 @@ Verification is staged to isolate failures:
    before the corresponding production change.
 2. Run the package typecheck/build and the example's existing Jest tests.
 3. From a clean example iOS directory, run `pod install --repo-update`; inspect
-   `Podfile.lock` to confirm `MeshStreamKit (1.0.1)` comes from the public
+   `Podfile.lock` to confirm `MeshStreamKit (1.0.2)` comes from the public
    Specs source rather than a local path.
 4. Build the generated iOS workspace for an iPhone simulator with code signing
    disabled, then run its XCTest target if the simulator is available.
 5. Run `pod lib lint MeshStreamP2P.podspec --allow-warnings` against the
    released public pod.
 
-Publication is successful only after the public `MeshStreamKit 1.0.1` pod is
+Publication is successful only after the public `MeshStreamKit 1.0.2` pod is
 resolvable and the RN example builds against it. If CocoaPods trunk credentials
 or binary-release credentials are unavailable, the source and release metadata
 can be prepared and locally validated, but the publication remains pending

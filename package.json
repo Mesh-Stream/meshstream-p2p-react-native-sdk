@@ -13,6 +13,7 @@
     "android/src",
     "ios",
     "react-native.config.js",
+    "tests/ios",
     "MeshStreamP2P.podspec",
     "README.md",
     "README.zh-CN.md",
@@ -21,6 +22,9 @@
   "scripts": {
     "build": "tsc --project tsconfig.json",
     "typecheck": "tsc --project tsconfig.json --noEmit",
+    "test:ios": "node --test tests/node/ios-regression-guards.test.mjs",
+    "verify:ios": "npm run test:ios && node scripts/verify-ios-package.mjs && node scripts/verify-ios-xctest.mjs",
+    "verify:ios:public": "npm run test:ios && node scripts/verify-ios-package.mjs && node scripts/verify-ios-xctest.mjs --repo-update",
     "prepare": "npm run build"
   },
   "keywords": [
