@@ -15,7 +15,7 @@
 ## 安装
 
 ```bash
-npm install @meshstream/react-native-p2p
+npm install react-native-meshstream
 ```
 
 在 React Native Android 工程的 `android/settings.gradle` 中，向 `dependencyResolutionManagement.repositories` 添加 MeshStream Maven 仓库：
@@ -37,7 +37,7 @@ repositories {
 
 ```tsx
 import Video from 'react-native-video';
-import { MeshStream } from '@meshstream/react-native-p2p';
+import { MeshStream } from 'react-native-meshstream';
 
 const client = await MeshStream.create({ key: 'key_your_android_key' });
 const session = await client.createPlaybackSession({
@@ -90,7 +90,7 @@ await session.updateLiveEdgeOffsetMs(liveEdgeOffsetMs);
 所有事件都带有 `clientId`、`sessionId`，可安全用于多播放器场景。
 
 ```ts
-import { addMeshStreamEventListener } from '@meshstream/react-native-p2p';
+import { addMeshStreamEventListener } from 'react-native-meshstream';
 
 const subscription = addMeshStreamEventListener((event) => {
   if (event.type === 'p2pUnavailable') {

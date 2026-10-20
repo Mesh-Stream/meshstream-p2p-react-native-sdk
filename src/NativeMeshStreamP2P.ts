@@ -28,7 +28,7 @@ const nativeModule = NativeModules.MeshStreamP2P as NativeMeshStreamP2P | undefi
 export function requireNativeModule(): NativeMeshStreamP2P {
   if (!nativeModule) {
     throw new Error(
-      'MeshStreamP2P is not linked. Rebuild the iOS or Android app after installing @meshstream/react-native-p2p.',
+      'MeshStreamP2P is not linked. Rebuild the iOS or Android app after installing react-native-meshstream.',
     );
   }
   return nativeModule;

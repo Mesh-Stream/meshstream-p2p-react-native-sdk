@@ -10,7 +10,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "@meshstream/react-native-p2p": "file:..",
+    "react-native-meshstream": "file:..",
     "react": "18.3.1",
     "react-native": "0.76.9",
     "react-native-video": "6.7.0"

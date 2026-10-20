@@ -15,7 +15,7 @@ const config = {
   watchFolders: [sdkRoot],
   resolver: {
     extraNodeModules: {
-      '@meshstream/react-native-p2p': sdkRoot,
+      'react-native-meshstream': sdkRoot,
     },
   },
 };

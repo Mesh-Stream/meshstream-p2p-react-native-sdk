@@ -21,7 +21,7 @@ import {
   type MeshStreamPlaybackSession,
   type MeshStreamStats,
   type MeshStreamStatus,
-} from '@meshstream/react-native-p2p';
+} from 'react-native-meshstream';
 
 type LogEntry = {id: number; text: string};
 

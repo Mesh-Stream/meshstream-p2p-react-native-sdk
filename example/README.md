@@ -1,6 +1,6 @@
 # MeshStream React Native Demo
 
-This application demonstrates the `@meshstream/react-native-p2p` SDK with a
+This application demonstrates the `react-native-meshstream` SDK with a
 playback URL input, runtime P2P controls, event output, statistics, and
 diagnostics.
 

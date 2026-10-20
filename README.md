@@ -15,7 +15,7 @@ React Native binding for MeshStream P2P playback acceleration. It creates a CDN-
 ## Install
 
 ```bash
-npm install @meshstream/react-native-p2p
+npm install react-native-meshstream
 ```
 
 For Android, add the MeshStream Maven repository to `android/settings.gradle` in the app's `dependencyResolutionManagement.repositories` block:
@@ -37,7 +37,7 @@ For iOS, run `pod install` from the app's `ios` directory after installation. Th
 
 ```tsx
 import Video from 'react-native-video';
-import { MeshStream } from '@meshstream/react-native-p2p';
+import { MeshStream } from 'react-native-meshstream';
 
 const client = await MeshStream.create({ key: 'key_your_android_key' });
 const session = await client.createPlaybackSession({
@@ -90,7 +90,7 @@ await session.updateLiveEdgeOffsetMs(liveEdgeOffsetMs);
 Events always include `clientId` and `sessionId`, which makes multiple players safe to observe.
 
 ```ts
-import { MeshStream, addMeshStreamEventListener } from '@meshstream/react-native-p2p';
+import { MeshStream, addMeshStreamEventListener } from 'react-native-meshstream';
 
 const subscription = addMeshStreamEventListener((event) => {
   if (event.type === 'p2pUnavailable') {

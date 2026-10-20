@@ -1,5 +1,5 @@
 {
-  "name": "@meshstream/react-native-p2p",
+  "name": "react-native-meshstream",
   "version": "0.1.0",
   "description": "MeshStream P2P playback URL SDK for React Native",
   "main": "lib/typescript/index.js",
