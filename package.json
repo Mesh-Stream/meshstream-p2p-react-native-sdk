@@ -12,6 +12,7 @@
     "android/build.gradle",
     "android/src",
     "ios",
+    "react-native.config.js",
     "MeshStreamP2P.podspec",
     "README.md",
     "README.zh-CN.md",
