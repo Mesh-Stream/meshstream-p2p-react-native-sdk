@@ -38,14 +38,22 @@ For iOS, install Pods on macOS before launching the app:
 
 ```bash
 cd ios
-bundle install
-bundle exec pod install
+pod install --repo-update
 cd ..
 npm run ios
 ```
 
 Enter a matching platform key and a playable media URL in the application. The
 demo prints lifecycle events, P2P statistics, and diagnostics on screen.
+
+## SDK dependency modes
+
+The committed demo consumes the exact published `react-native-meshstream` npm
+version so it verifies the same package installed by application developers.
+For local SDK work, temporarily switch the dependency to `file:..`; restore the
+published version and update the lockfile before pushing changes. See the
+[contribution guide](../CONTRIBUTING.md) for the required commands and release
+verification steps.
 
 ## Notes
 

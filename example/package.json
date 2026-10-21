@@ -10,9 +10,9 @@
     "test": "jest"
   },
   "dependencies": {
-    "react-native-meshstream": "file:..",
     "react": "18.3.1",
     "react-native": "0.76.9",
+    "react-native-meshstream": "1.0.0",
     "react-native-video": "6.7.0"
   },
   "devDependencies": {
