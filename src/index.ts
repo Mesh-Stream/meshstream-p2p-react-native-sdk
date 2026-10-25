@@ -1,6 +1,7 @@
-import { DeviceEventEmitter, type EmitterSubscription } from 'react-native';
+import { DeviceEventEmitter, Platform, type EmitterSubscription } from 'react-native';
 
 import { requireNativeModule } from './NativeMeshStreamP2P';
+import { MESHSTREAM_REACT_NATIVE_VERSION } from './version';
 import type {
   MeshStreamConfig,
   MeshStreamDiagnostics,
@@ -9,6 +10,7 @@ import type {
   MeshStreamSessionInfo,
   MeshStreamStats,
   MeshStreamStatus,
+  MeshStreamVersionInfo,
   PlaybackSessionOptions,
 } from './types';
 
@@ -30,15 +32,17 @@ export class MeshStreamPlaybackSession {
   readonly playbackUrl: string;
   readonly playbackMode: MeshStreamSessionInfo['playbackMode'];
   readonly fallbackReason?: MeshStreamSessionInfo['fallbackReason'];
+  private readonly isClientClosed: () => boolean;
   private closed = false;
   private closing?: Promise<void>;
 
-  constructor(info: MeshStreamSessionInfo) {
+  constructor(info: MeshStreamSessionInfo, isClientClosed: () => boolean = () => false) {
     this.clientId = info.clientId;
     this.sessionId = info.sessionId;
     this.playbackUrl = info.playbackUrl;
     this.playbackMode = info.playbackMode;
     this.fallbackReason = info.fallbackReason;
+    this.isClientClosed = isClientClosed;
   }
 
   async preload(): Promise<boolean> {
@@ -69,6 +73,9 @@ export class MeshStreamPlaybackSession {
 
   async close(): Promise<void> {
     if (this.closed) return;
+    if (this.isClientClosed()) {
+      return;
+    }
     if (!this.closing) {
       this.closing = requireNativeModule()
         .closeSession(this.clientId, this.sessionId)
@@ -79,7 +86,9 @@ export class MeshStreamPlaybackSession {
   }
 
   private async withOpen<T>(operation: () => Promise<T>): Promise<T> {
-    if (this.closed || this.closing) throw new Error('Playback session is closed.');
+    if (this.closed || this.closing || this.isClientClosed()) {
+      throw new Error('Playback session is closed.');
+    }
     return operation();
   }
 }
@@ -95,9 +104,11 @@ export class MeshStreamClient {
 
   async createPlaybackSession(options: PlaybackSessionOptions): Promise<MeshStreamPlaybackSession> {
     assertNonEmpty(options.url, 'options.url');
-    return this.withOpen(async () => new MeshStreamPlaybackSession(
-      await requireNativeModule().createPlaybackSession(this.clientId, options),
-    ));
+    return this.withOpen(async () => {
+      const info = await requireNativeModule().createPlaybackSession(this.clientId, options);
+      if (this.closed || this.closing) throw new Error('MeshStream client is closed.');
+      return new MeshStreamPlaybackSession(info, () => this.closed || this.closing !== undefined);
+    });
   }
 
   async getStatus(): Promise<MeshStreamStatus> {
@@ -122,6 +133,24 @@ export class MeshStreamClient {
 }
 
 export const MeshStream = {
+  /** Returns the version of the native MeshStream SDK loaded by this application. */
+  async getSdkVersion(): Promise<string> {
+    return requireNativeModule().getSdkVersion();
+  },
+
+  /** Returns the React Native package version and the loaded native engine version. */
+  async getVersion(): Promise<MeshStreamVersionInfo> {
+    const platform = Platform.OS;
+    if (platform !== 'android' && platform !== 'ios') {
+      throw new Error(`react-native-meshstream does not support ${platform}.`);
+    }
+    return {
+      packageVersion: MESHSTREAM_REACT_NATIVE_VERSION,
+      nativeSdkVersion: await MeshStream.getSdkVersion(),
+      platform,
+    };
+  },
+
   async create(config: MeshStreamConfig): Promise<MeshStreamClient> {
     assertNonEmpty(config.key, 'config.key');
     const result = await requireNativeModule().createClient(config);

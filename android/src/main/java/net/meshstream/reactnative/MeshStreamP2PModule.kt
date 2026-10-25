@@ -33,6 +33,7 @@ class MeshStreamP2PModule(
     private data class BridgeClient(
         val client: P2pClient,
         val sessions: ConcurrentHashMap<String, PlaybackSession> = ConcurrentHashMap(),
+        val nativeSessionIds: ConcurrentHashMap<Long, String> = ConcurrentHashMap(),
         val pendingEvents: ConcurrentHashMap<Long, MutableList<PendingEvent>> = ConcurrentHashMap(),
     )
 
@@ -44,6 +45,11 @@ class MeshStreamP2PModule(
     private val clients = ConcurrentHashMap<String, BridgeClient>()
 
     override fun getName(): String = MODULE_NAME
+
+    @ReactMethod
+    fun getSdkVersion(promise: Promise) {
+        promise.resolve(P2pSdk.version)
+    }
 
     @ReactMethod
     fun createClient(config: ReadableMap, promise: Promise) {
@@ -84,6 +90,7 @@ class MeshStreamP2PModule(
             )
             val sessionId = UUID.randomUUID().toString()
             bridgeClient.sessions[sessionId] = session
+            bridgeClient.nativeSessionIds[session.sessionId] = sessionId
             flushPendingEvents(clientId, sessionId, session, bridgeClient)
             promise.resolve(session.toWritableMap(clientId, sessionId))
         } catch (error: Throwable) {
@@ -141,6 +148,7 @@ class MeshStreamP2PModule(
         try {
             val bridgeClient = clients.requireClient(clientId)
             bridgeClient.sessions.remove(sessionId)?.let { session ->
+                bridgeClient.nativeSessionIds.remove(session.sessionId, sessionId)
                 bridgeClient.pendingEvents.remove(session.sessionId)
                 session.close()
             }
@@ -156,6 +164,7 @@ class MeshStreamP2PModule(
             clients.remove(clientId)?.let { bridgeClient ->
                 bridgeClient.sessions.values.forEach { it.close() }
                 bridgeClient.sessions.clear()
+                bridgeClient.nativeSessionIds.clear()
                 bridgeClient.pendingEvents.clear()
                 bridgeClient.client.close()
             }
@@ -168,6 +177,7 @@ class MeshStreamP2PModule(
     override fun invalidate() {
         clients.values.forEach { bridgeClient ->
             bridgeClient.sessions.values.forEach { it.close() }
+            bridgeClient.nativeSessionIds.clear()
             bridgeClient.pendingEvents.clear()
             bridgeClient.client.close()
         }
@@ -184,8 +194,7 @@ class MeshStreamP2PModule(
     }
 
     private fun createEventListener(clientId: String, bridgeClient: BridgeClient) = object : P2pEventListener {
-        private fun sessionId(nativeSessionId: Long): String? = bridgeClient.sessions.entries
-            .firstOrNull { it.value.sessionId == nativeSessionId }?.key
+        private fun sessionId(nativeSessionId: Long): String? = bridgeClient.nativeSessionIds[nativeSessionId]
 
         private fun emit(nativeSessionId: Long, type: String, extras: WritableMap.() -> Unit = {}) {
             val jsSessionId = sessionId(nativeSessionId)

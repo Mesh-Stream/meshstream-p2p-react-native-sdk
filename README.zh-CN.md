@@ -102,6 +102,16 @@ const diagnostics = await session.getDiagnostics();
 subscription.remove();
 ```
 
+### 版本信息
+
+创建客户端前即可读取版本信息。提交工单或诊断日志时，应同时记录 React Native 包版本和原生内核版本；两者独立发布。
+
+```ts
+const sdkVersion = await MeshStream.getSdkVersion();
+const version = await MeshStream.getVersion();
+// { packageVersion: '1.0.0', nativeSdkVersion: '1.0.4', platform: 'android' }
+```
+
 事件类型包括：`peerCountChanged`、`playbackPrepared`、`p2pReady`、`p2pUnavailable`、`statistics`、`cdnFallback`、`trackerError`、`peerConnectError`。
 
 ## 支持的媒体格式

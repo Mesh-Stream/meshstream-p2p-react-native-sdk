@@ -10,6 +10,7 @@ import type {
 } from './types';
 
 interface NativeMeshStreamP2P {
+  getSdkVersion(): Promise<string>;
   createClient(config: MeshStreamConfig): Promise<{ clientId: string; status: MeshStreamStatus }>;
   createPlaybackSession(clientId: string, options: PlaybackSessionOptions): Promise<MeshStreamSessionInfo>;
   preload(clientId: string, sessionId: string): Promise<boolean>;

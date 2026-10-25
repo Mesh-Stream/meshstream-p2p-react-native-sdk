@@ -99,8 +99,17 @@ static NSDictionary *MeshStreamDiagnosticsMap(P2PDiagnostics *diagnostics) {
 @implementation MeshStreamBridgeClient
 @end
 
+@interface MeshStreamSessionRoute : NSObject
+@property(nonatomic, copy) NSString *clientId;
+@property(nonatomic, copy) NSString *sessionId;
+@end
+
+@implementation MeshStreamSessionRoute
+@end
+
 @interface MeshStreamP2P () <P2PEventListener>
 @property(nonatomic, strong) NSMutableDictionary<NSString *, MeshStreamBridgeClient *> *clients;
+@property(nonatomic, strong) NSMutableDictionary<NSString *, MeshStreamSessionRoute *> *sessionRoutes;
 @property(nonatomic, strong) NSMutableDictionary<NSString *, NSMutableArray<NSDictionary *> *> *pendingEvents;
 @end
 
@@ -113,12 +122,19 @@ RCT_EXPORT_MODULE(MeshStreamP2P)
 - (instancetype)init {
     if ((self = [super init])) {
         _clients = [NSMutableDictionary dictionary];
+        _sessionRoutes = [NSMutableDictionary dictionary];
         _pendingEvents = [NSMutableDictionary dictionary];
     }
     return self;
 }
 
 - (NSArray<NSString *> *)supportedEvents { return @[MeshStreamEventName]; }
+
+RCT_REMAP_METHOD(getSdkVersion,
+                 getSdkVersionWithResolver:(RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject) {
+    resolve([P2PSDK getSdkVersion] ?: @"unknown");
+}
 
 RCT_REMAP_METHOD(createClient,
                  createClientWithConfig:(NSDictionary *)config
@@ -168,6 +184,10 @@ RCT_EXPORT_METHOD(createPlaybackSession:(NSString *)clientId
     }
     NSString *sessionId = NSUUID.UUID.UUIDString;
     @synchronized (bridgeClient.sessions) { bridgeClient.sessions[sessionId] = session; }
+    MeshStreamSessionRoute *route = [MeshStreamSessionRoute new];
+    route.clientId = clientId;
+    route.sessionId = sessionId;
+    @synchronized (self.sessionRoutes) { self.sessionRoutes[session.sessionId] = route; }
     [self flushPendingEventsForNativeSessionId:session.sessionId clientId:clientId sessionId:sessionId];
     NSMutableDictionary *result = [@{
         @"clientId": clientId,
@@ -220,7 +240,10 @@ RCT_EXPORT_METHOD(closeSession:(NSString *)clientId sessionId:(NSString *)sessio
     if (bridgeClient == nil) { reject(@"MESHSTREAM_CLOSE_SESSION_FAILED", @"Unknown or closed MeshStream client.", nil); return; }
     PlaybackSession *session;
     @synchronized (bridgeClient.sessions) { session = bridgeClient.sessions[sessionId]; [bridgeClient.sessions removeObjectForKey:sessionId]; }
-    if (session != nil) [self removePendingEventsForNativeSessionId:session.sessionId];
+    if (session != nil) {
+        [self removeSessionRouteForNativeSessionId:session.sessionId];
+        [self removePendingEventsForNativeSessionId:session.sessionId];
+    }
     [session close];
     resolve(nil);
 }
@@ -233,6 +256,7 @@ RCT_EXPORT_METHOD(closeClient:(NSString *)clientId resolver:(RCTPromiseResolveBl
         NSArray<PlaybackSession *> *sessions;
         @synchronized (bridgeClient.sessions) { sessions = bridgeClient.sessions.allValues; [bridgeClient.sessions removeAllObjects]; }
         for (PlaybackSession *session in sessions) {
+            [self removeSessionRouteForNativeSessionId:session.sessionId];
             [self removePendingEventsForNativeSessionId:session.sessionId];
             [session close];
         }
@@ -259,22 +283,13 @@ RCT_EXPORT_METHOD(closeClient:(NSString *)clientId resolver:(RCTPromiseResolveBl
 }
 
 - (void)emitForNativeSessionId:(NSString *)nativeSessionId type:(NSString *)type extras:(NSDictionary *)extras {
-    __block NSString *clientId;
-    __block NSString *sessionId;
-    @synchronized (self.clients) {
-        [self.clients enumerateKeysAndObjectsUsingBlock:^(NSString *key, MeshStreamBridgeClient *bridgeClient, BOOL *stop) {
-            @synchronized (bridgeClient.sessions) {
-                [bridgeClient.sessions enumerateKeysAndObjectsUsingBlock:^(NSString *jsId, PlaybackSession *session, BOOL *sessionStop) {
-                    if ([session.sessionId isEqualToString:nativeSessionId]) { clientId = key; sessionId = jsId; *stop = YES; *sessionStop = YES; }
-                }];
-            }
-        }];
-    }
-    if (clientId == nil || sessionId == nil) {
+    MeshStreamSessionRoute *route;
+    @synchronized (self.sessionRoutes) { route = self.sessionRoutes[nativeSessionId]; }
+    if (route == nil) {
         [self bufferPendingEventForNativeSessionId:nativeSessionId type:type extras:extras];
         return;
     }
-    [self sendSessionEventForClientId:clientId sessionId:sessionId type:type extras:extras];
+    [self sendSessionEventForClientId:route.clientId sessionId:route.sessionId type:type extras:extras];
 }
 
 - (void)sendSessionEventForClientId:(NSString *)clientId sessionId:(NSString *)sessionId type:(NSString *)type extras:(NSDictionary *)extras {
@@ -311,6 +326,10 @@ RCT_EXPORT_METHOD(closeClient:(NSString *)clientId resolver:(RCTPromiseResolveBl
     @synchronized (self.pendingEvents) { [self.pendingEvents removeObjectForKey:nativeSessionId]; }
 }
 
+- (void)removeSessionRouteForNativeSessionId:(NSString *)nativeSessionId {
+    @synchronized (self.sessionRoutes) { [self.sessionRoutes removeObjectForKey:nativeSessionId]; }
+}
+
 - (void)onPlaybackPreparedWithSessionId:(NSString *)sessionId playbackUrl:(NSURL *)playbackUrl { [self emitForNativeSessionId:sessionId type:@"playbackPrepared" extras:@{ @"playbackUrl": playbackUrl.absoluteString ?: @"" }]; }
 - (void)onStatisticsWithSessionId:(NSString *)sessionId stats:(P2PStats *)stats { [self emitForNativeSessionId:sessionId type:@"statistics" extras:@{ @"statistics": MeshStreamStatsMap(stats) }]; }
 - (void)onPeerCountChangedWithSessionId:(NSString *)sessionId peerCount:(NSInteger)peerCount { [self emitForNativeSessionId:sessionId type:@"peerCountChanged" extras:@{ @"peerCount": @(peerCount) }]; }
@@ -326,12 +345,16 @@ RCT_EXPORT_METHOD(closeClient:(NSString *)clientId resolver:(RCTPromiseResolveBl
     for (NSString *clientId in clientIds) {
         MeshStreamBridgeClient *bridgeClient = [self bridgeClient:clientId];
         [bridgeClient.client removeEventListener:self];
-        for (PlaybackSession *session in bridgeClient.sessions.allValues) [session close];
+        for (PlaybackSession *session in bridgeClient.sessions.allValues) {
+            [self removeSessionRouteForNativeSessionId:session.sessionId];
+            [session close];
+        }
         [bridgeClient.sessions removeAllObjects];
         [bridgeClient.client close];
         bridgeClient.client = nil;
     }
     @synchronized (self.clients) { [self.clients removeAllObjects]; }
+    @synchronized (self.sessionRoutes) { [self.sessionRoutes removeAllObjects]; }
     @synchronized (self.pendingEvents) { [self.pendingEvents removeAllObjects]; }
     [super invalidate];
 }

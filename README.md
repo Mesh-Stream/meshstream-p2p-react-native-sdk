@@ -102,6 +102,16 @@ const diagnostics = await session.getDiagnostics();
 subscription.remove();
 ```
 
+### Version information
+
+Read version information before creating a client when attaching diagnostics to a support request. The React Native package and the native engine are versioned independently, so record both fields.
+
+```ts
+const sdkVersion = await MeshStream.getSdkVersion();
+const version = await MeshStream.getVersion();
+// { packageVersion: '1.0.0', nativeSdkVersion: '1.0.4', platform: 'android' }
+```
+
 Available event types: `peerCountChanged`, `playbackPrepared`, `p2pReady`, `p2pUnavailable`, `statistics`, `cdnFallback`, `trackerError`, and `peerConnectError`.
 
 ## Supported media
