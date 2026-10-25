@@ -8,6 +8,10 @@ import test from 'node:test';
 import {selectAvailableIOSSimulator} from '../../scripts/ios-simulator.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
+const npmCommand = process.platform === 'win32' ? process.execPath : 'npm';
+const npmPrefixArgs = process.platform === 'win32'
+  ? [process.env.npm_execpath ?? path.join(path.dirname(process.execPath), 'node_modules', 'npm', 'bin', 'npm-cli.js')]
+  : [];
 
 for (const script of ['verify-ios-bridge-source.mjs', 'verify-ios-cocoapods.mjs']) {
   test(`${script} validates the iOS release contract`, () => {
@@ -21,7 +25,7 @@ for (const script of ['verify-ios-bridge-source.mjs', 'verify-ios-cocoapods.mjs'
 }
 
 test('ships the Pod XCTest source in the npm package', () => {
-  const result = spawnSync('npm', ['pack', '--dry-run', '--json', '--ignore-scripts'], {
+  const result = spawnSync(npmCommand, [...npmPrefixArgs, 'pack', '--dry-run', '--json', '--ignore-scripts'], {
     cwd: root,
     encoding: 'utf8',
   });
@@ -45,8 +49,8 @@ test('runs iOS guards and the XCTest suite from package scripts', () => {
   assert.match(packageJson.scripts['verify:ios:public'], /node scripts\/verify-ios-xctest\.mjs --repo-update/);
   assert.match(xcodeProject, /tests\/ios\/MeshStreamP2PValidationTests\.m/);
   assert.match(xcodeVerifier, /process\.argv\.includes\('--repo-update'\)/);
-  assert.match(packageVerifier, /execFileSync\(\s*'npm'/);
-  assert.match(packageVerifier, /\['pack', '--json', '--ignore-scripts', '--pack-destination'/);
+  assert.match(packageVerifier, /npmCommand/);
+  assert.match(packageVerifier, /\.\.\.npmPrefixArgs, 'pack', '--json', '--ignore-scripts', '--pack-destination'/);
   assert.match(packageVerifier, /execFileSync\('tar', \['-xzf'/);
   assert.match(packageVerifier, /execFileSync\('pod', \['install'\]/);
   assert.match(packageVerifier, /execFileSync\(\s*'xcodebuild'/);

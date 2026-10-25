@@ -102,6 +102,16 @@ const diagnostics = await session.getDiagnostics();
 subscription.remove();
 ```
 
+### 版本信息
+
+创建客户端前即可读取版本信息。提交工单或诊断日志时，应同时记录 React Native 包版本和原生内核版本；两者独立发布。
+
+```ts
+const sdkVersion = await MeshStream.getSdkVersion();
+const version = await MeshStream.getVersion();
+// { packageVersion: '1.0.0', nativeSdkVersion: '1.0.2', platform: 'android' }
+```
+
 事件类型包括：`peerCountChanged`、`playbackPrepared`、`p2pReady`、`p2pUnavailable`、`statistics`、`cdnFallback`、`trackerError`、`peerConnectError`。
 
 ## 支持的媒体格式
@@ -116,7 +126,7 @@ subscription.remove();
 
 - `react-native-meshstream` 使用独立的 React Native 包版本；当前首发版本为 `1.0.0`。
 - Android 桥接使用独立的原生依赖：`io.meshstream:meshstream-android-sdk:1.0.2`。
-- iOS 桥接使用独立的原生依赖：`MeshStreamKit >= 1.0.0`。
+- iOS 桥接使用独立的原生依赖：`MeshStreamKit 1.0.2`。
 
 升级 React Native 包不会隐式升级任一原生 SDK。
 

@@ -102,6 +102,16 @@ const diagnostics = await session.getDiagnostics();
 subscription.remove();
 ```
 
+### Version information
+
+Read version information before creating a client when attaching diagnostics to a support request. The React Native package and the native engine are versioned independently, so record both fields.
+
+```ts
+const sdkVersion = await MeshStream.getSdkVersion();
+const version = await MeshStream.getVersion();
+// { packageVersion: '1.0.0', nativeSdkVersion: '1.0.2', platform: 'android' }
+```
+
 Available event types: `peerCountChanged`, `playbackPrepared`, `p2pReady`, `p2pUnavailable`, `statistics`, `cdnFallback`, `trackerError`, and `peerConnectError`.
 
 ## Supported media
@@ -116,7 +126,7 @@ The package is a unified JavaScript layer, not an Android SDK repackaged for Rea
 
 - `react-native-meshstream` follows its own React Native package version. This release is `1.0.0`.
 - The Android bridge keeps its independent native dependency: `io.meshstream:meshstream-android-sdk:1.0.2`.
-- The iOS bridge keeps its independent native dependency: `MeshStreamKit >= 1.0.0`.
+- The iOS bridge keeps its independent native dependency: `MeshStreamKit 1.0.2`.
 
 Updating the React Native package does not implicitly upgrade either native SDK.
 

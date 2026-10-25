@@ -6,6 +6,16 @@ export interface MeshStreamConfig {
   p2pEnabled?: boolean;
 }
 
+/** Versions of the JavaScript wrapper and native engine used by this application. */
+export interface MeshStreamVersionInfo {
+  /** Version of the installed react-native-meshstream package. */
+  packageVersion: string;
+  /** Version of the Android or Apple MeshStream engine loaded by the bridge. */
+  nativeSdkVersion: string;
+  /** Native platform that supplied nativeSdkVersion. */
+  platform: 'android' | 'ios';
+}
+
 export interface PlaybackSessionOptions {
   url: string;
   contentId?: string;

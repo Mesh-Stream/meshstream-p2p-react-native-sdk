@@ -7,6 +7,10 @@ import {fileURLToPath} from 'node:url';
 import {selectAvailableIOSSimulator} from './ios-simulator.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const npmCommand = process.platform === 'win32' ? process.execPath : 'npm';
+const npmPrefixArgs = process.platform === 'win32'
+  ? [process.env.npm_execpath ?? path.join(path.dirname(process.execPath), 'node_modules', 'npm', 'bin', 'npm-cli.js')]
+  : [];
 const temporaryDirectory = mkdtempSync(path.join(tmpdir(), 'meshstream-p2p-package-'));
 const iosDirectory = path.join(temporaryDirectory, 'example', 'ios');
 const packageDirectory = path.join(temporaryDirectory, 'package');
@@ -23,8 +27,8 @@ function run(command, args) {
 
 try {
   const packOutput = execFileSync(
-    'npm',
-    ['pack', '--json', '--ignore-scripts', '--pack-destination', temporaryDirectory],
+    npmCommand,
+    [...npmPrefixArgs, 'pack', '--json', '--ignore-scripts', '--pack-destination', temporaryDirectory],
     {cwd: root, encoding: 'utf8'},
   );
   const [pack] = JSON.parse(packOutput);

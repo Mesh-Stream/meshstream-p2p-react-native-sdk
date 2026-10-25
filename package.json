@@ -22,10 +22,12 @@
   "scripts": {
     "build": "tsc --project tsconfig.json",
     "typecheck": "tsc --project tsconfig.json --noEmit",
+    "verify:version": "node scripts/verify-package-version.mjs",
     "test:ios": "node --test tests/node/ios-regression-guards.test.mjs",
     "verify:ios": "npm run test:ios && node scripts/verify-ios-package.mjs && node scripts/verify-ios-xctest.mjs",
     "verify:ios:public": "npm run test:ios && node scripts/verify-ios-package.mjs && node scripts/verify-ios-xctest.mjs --repo-update",
-    "prepare": "npm run build"
+    "prepare": "npm run build",
+    "prepack": "npm run verify:version"
   },
   "keywords": [
     "react-native",
