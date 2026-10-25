@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   s.public_header_files = 'ios/MeshStreamP2P.h'
   s.private_header_files = 'ios/MeshStreamP2PValidation.h'
   s.dependency 'React-Core'
-  s.dependency 'MeshStreamKit', '= 1.0.2'
+  s.dependency 'MeshStreamKit', '= 1.0.4'
   s.frameworks = 'Foundation', 'Network', 'Security'
 
   s.test_spec 'Validation' do |test_spec|

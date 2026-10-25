@@ -31,7 +31,7 @@ repositories {
 }
 ```
 
-For iOS, the bridge resolves the public `MeshStreamKit 1.0.2` CocoaPod. After installation, run `pod install --repo-update` from the app's `ios` directory and rebuild the native app. Do not add a local `MeshStreamKit` pod path or embed its XCFramework yourself.
+For iOS, the bridge resolves the public `MeshStreamKit 1.0.4` CocoaPod. After installation, run `pod install --repo-update` from the app's `ios` directory and rebuild the native app. Do not add a local `MeshStreamKit` pod path or embed its XCFramework yourself.
 
 ## Basic usage
 
@@ -115,12 +115,12 @@ The package is a unified JavaScript layer, not an Android SDK repackaged for Rea
 ### Versioning
 
 - `react-native-meshstream` follows its own React Native package version. This release is `1.0.0`.
-- The Android bridge keeps its independent native dependency: `io.meshstream:meshstream-android-sdk:1.0.2`.
-- The iOS bridge keeps its independent native dependency: `MeshStreamKit >= 1.0.0`.
+- The Android bridge keeps its independent native dependency: `io.meshstream:meshstream-android-sdk:1.0.4`.
+- The iOS bridge keeps its independent native dependency: `MeshStreamKit 1.0.4`.
 
 Updating the React Native package does not implicitly upgrade either native SDK.
 
-- Android resolves `io.meshstream:meshstream-android-sdk:1.0.2` from the MeshStream Maven repository.
-- iOS resolves the public `MeshStreamKit 1.0.2` CocoaPod.
+- Android resolves `io.meshstream:meshstream-android-sdk:1.0.4` from the MeshStream Maven repository.
+- iOS resolves the public `MeshStreamKit 1.0.4` CocoaPod.
 
 Both bridges maintain client/session isolation. Closing a client only closes its own sessions and never interrupts another React Native player in the same process.
