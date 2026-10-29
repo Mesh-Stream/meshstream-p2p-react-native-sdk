@@ -19,5 +19,5 @@ android {
 dependencies {
   implementation 'com.facebook.react:react-android'
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
-  implementation 'io.meshstream:meshstream-android-sdk:1.0.4'
+  implementation 'io.meshstream:meshstream-android-sdk:1.0.6'
 }

@@ -48,7 +48,11 @@ class MeshStreamP2PModule(
 
     @ReactMethod
     fun getSdkVersion(promise: Promise) {
-        promise.resolve(P2pSdk.version)
+        try {
+            promise.resolve(P2pSdk.getSdkVersion())
+        } catch (error: Throwable) {
+            promise.reject("MESHSTREAM_VERSION_FAILED", error.message, error)
+        }
     }
 
     @ReactMethod

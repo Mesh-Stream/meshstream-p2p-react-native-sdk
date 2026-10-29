@@ -7,7 +7,7 @@ repository's integration build representative of what application developers
 install.
 
 - Commit `example/package.json` and `example/package-lock.json` with an exact
-  published version of `react-native-meshstream` (for example, `1.0.0`). Do not
+  published version of `react-native-meshstream` (for example, `1.0.2`). Do not
   use `latest`, a semver range, or `file:..` in committed demo dependencies.
 - For local SDK development, temporarily replace the demo dependency with the
   working tree:
@@ -22,10 +22,10 @@ install.
 
   ```bash
   cd example
-  npm install react-native-meshstream@1.0.0 --save-exact --registry=https://registry.npmjs.org
+  npm install react-native-meshstream@1.0.2 --save-exact --registry=https://registry.npmjs.org
   ```
 
-  Replace `1.0.0` with the release version being verified.
+  Replace `1.0.2` with the release version being verified.
 
 ## Release Verification
 

@@ -1,6 +1,6 @@
 {
   "name": "react-native-meshstream",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "MeshStream P2P playback URL SDK for React Native",
   "main": "lib/typescript/index.js",
   "module": "lib/typescript/index.js",
@@ -27,7 +27,8 @@
     "verify:ios": "npm run test:ios && node scripts/verify-ios-package.mjs && node scripts/verify-ios-xctest.mjs",
     "verify:ios:public": "npm run test:ios && node scripts/verify-ios-package.mjs && node scripts/verify-ios-xctest.mjs --repo-update",
     "prepare": "npm run build",
-    "prepack": "npm run verify:version"
+    "prepack": "npm run verify:version",
+    "test": "npm run build && node --test tests/node/*.test.mjs"
   },
   "keywords": [
     "react-native",

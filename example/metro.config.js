@@ -10,12 +10,8 @@ const path = require('node:path');
 const sdkRoot = path.resolve(__dirname, '..');
 
 const config = {
-  // The example consumes the SDK through its local file:.. dependency.
   watchFolders: [sdkRoot],
   resolver: {
-    extraNodeModules: {
-      'react-native-meshstream': sdkRoot,
-    },
     disableHierarchicalLookup: true,
     nodeModulesPaths: [
       path.join(__dirname, 'node_modules'),

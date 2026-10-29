@@ -4,6 +4,9 @@ This application demonstrates the `react-native-meshstream` SDK with a
 playback URL input, runtime P2P controls, event output, statistics, and
 diagnostics.
 
+Before a client is created, the demo shows the React Native package version,
+current platform, and loaded native SDK version using `MeshStream.getVersion()`.
+
 ## Prerequisites
 
 - Node.js 18 or later

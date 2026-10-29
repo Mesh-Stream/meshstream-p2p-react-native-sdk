@@ -1,4 +1,5 @@
 #import <XCTest/XCTest.h>
+#import <MeshStreamKit/MeshStreamKit.h>
 
 #import "../../ios/MeshStreamP2PValidation.h"
 
@@ -6,6 +7,10 @@
 @end
 
 @implementation MeshStreamP2PValidationTests
+
+- (void)testNativeVersionIsAvailableBeforeCreatingClient {
+    XCTAssertEqualObjects([P2PSDK getSdkVersion], @"1.0.6");
+}
 
 - (void)testTrimsURLsAndFiltersNonStringHeaders {
     XCTAssertEqualObjects(

@@ -56,6 +56,7 @@ try {
   writeFileSync(
     path.join(iosDirectory, 'Podfile'),
     `require File.join(${rubyString(podReactNativePath)}, 'scripts/react_native_pods.rb')
+require ${rubyString(path.join(root, 'scripts/ios-build-settings.rb'))}
 
 platform :ios, min_ios_version_supported
 prepare_react_native_project!
@@ -77,6 +78,7 @@ target 'MeshStreamRnDemo' do
       ${rubyString(podReactNativePath)},
       :mac_catalyst_enabled => false
     )
+    meshstream_ios_build_settings(installer)
   end
 end
 `,

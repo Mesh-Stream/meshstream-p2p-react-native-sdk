@@ -20,6 +20,7 @@ import {
   type MeshStreamPlaybackSession,
   type MeshStreamStats,
   type MeshStreamStatus,
+  type MeshStreamVersionInfo,
 } from 'react-native-meshstream';
 
 type LogEntry = {id: number; text: string};
@@ -31,6 +32,7 @@ function formatJson(value: unknown): string {
 function App(): React.JSX.Element {
   const clientRef = useRef<MeshStreamClient>();
   const sessionRef = useRef<MeshStreamPlaybackSession>();
+  const [version, setVersion] = useState<MeshStreamVersionInfo>();
   const [sdkKey, setSdkKey] = useState('');
   const [mediaUrl, setMediaUrl] = useState('');
   const [contentId, setContentId] = useState('');
@@ -90,6 +92,16 @@ function App(): React.JSX.Element {
       refreshingRef.current = false;
     }
   }, []);
+
+  useEffect(() => {
+    let active = true;
+    MeshStream.getVersion().then(value => {
+      if (active) setVersion(value);
+    }).catch(error => {
+      if (active) appendLog(`版本读取失败: ${String(error)}`);
+    });
+    return () => { active = false; };
+  }, [appendLog]);
 
   useEffect(() => {
     const subscription = addMeshStreamEventListener((event: MeshStreamEvent) => {
@@ -166,6 +178,7 @@ function App(): React.JSX.Element {
       <ScrollView contentContainerStyle={styles.page} keyboardShouldPersistTaps="handled">
         <Text style={styles.title}>MeshStream React Native Demo</Text>
         <Text style={styles.subtitle}>验证工具。Key 仅保存在当前应用内存中。</Text>
+        {version ? <Text style={styles.subtitle}>React Native {version.packageVersion} · {version.platform} SDK {version.nativeSdkVersion}</Text> : null}
 
         <View style={styles.card}>
           <Text style={styles.label}>SDK Key</Text>

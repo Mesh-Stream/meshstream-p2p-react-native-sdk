@@ -8,7 +8,7 @@ import {Pressable, Switch, TextInput} from 'react-native';
 
 jest.mock('react-native-meshstream', () => ({
   addMeshStreamEventListener: jest.fn(() => ({remove: jest.fn()})),
-  MeshStream: {create: jest.fn()},
+  MeshStream: {create: jest.fn(), getVersion: jest.fn().mockResolvedValue({packageVersion: '1.0.2', nativeSdkVersion: '1.0.6', platform: 'ios'})},
 }));
 
 import App from '../App';
@@ -20,12 +20,16 @@ import {it} from '@jest/globals';
 // Note: test renderer must be required after react-native.
 import renderer from 'react-test-renderer';
 
-it('renders correctly', async () => {
+it('shows package and native versions before creating a client', async () => {
+  (MeshStream.create as jest.Mock).mockClear();
   let app: ReturnType<typeof renderer.create>;
 
   await renderer.act(async () => {
     app = renderer.create(<App />);
   });
+  expect(JSON.stringify(app!.toJSON())).toContain('1.0.2');
+  expect(JSON.stringify(app!.toJSON())).toContain('1.0.6');
+  expect(MeshStream.create).not.toHaveBeenCalled();
   await renderer.act(async () => {
     app!.unmount();
   });

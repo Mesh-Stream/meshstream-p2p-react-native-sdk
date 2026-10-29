@@ -1,0 +1,93 @@
+{
+  "package": "react-native-meshstream",
+  "version": "1.0.1",
+  "status": "validated-candidate",
+  "sourceBaseCommit": "df2da3dc43a9aae018be0923e367cc2b54db837d",
+  "nativeDependencies": {
+    "ios": {
+      "pod": "MeshStreamKit",
+      "version": "1.0.4"
+    },
+    "android": {
+      "maven": "io.meshstream:meshstream-android-sdk",
+      "version": "1.0.4"
+    }
+  },
+  "artifact": {
+    "filename": "react-native-meshstream-1.0.1.tgz",
+    "sha256": "5ebf11032d9ccf73e0375756989c049470e54631f9479a13020f407dfedc4c45",
+    "npmShasum": "54288ee32922c428f5f21bf6b822f3322f8c8875",
+    "npmIntegrity": "sha512-mk6nvCQA3VZRtHUoBa17m/BAuFn05VQVIo6N4vkbQlGRoPEJf/21eNjY2AtUsvhuhHeR8S4ryyV3C6a8EuO7nA==",
+    "fileCount": 28
+  },
+  "validation": {
+    "date": "2026-10-26",
+    "host": "Apple Silicon arm64 / macOS 27.0",
+    "toolchain": {
+      "node": "24.22.1",
+      "npm": "11.19.1",
+      "xcode": "27.1 (27A9275)",
+      "cocoapods": "1.17.0",
+      "jdk": "17",
+      "gradle": "8.10.2",
+      "androidNdk": "27.2.12479018"
+    },
+    "typecheck": "passed",
+    "nodeTests": {
+      "passed": 9,
+      "failed": 0
+    },
+    "exampleJest": {
+      "suites": 2,
+      "passed": 5,
+      "failed": 0
+    },
+    "iosPackedPackageXCTest": {
+      "passed": 2,
+      "failed": 0
+    },
+    "iosExampleXCTest": {
+      "passed": 2,
+      "failed": 0
+    },
+    "androidArm64DebugBuild": "passed",
+    "runtime": {
+      "ios": "iPhone 18 Pro simulator / iOS 27.0 / arm64",
+      "android": "Android 15 / API 35 / arm64",
+      "versionsBeforeClientCreation": {
+        "package": "1.0.1",
+        "iosNative": "1.0.4",
+        "androidNative": "1.0.4"
+      },
+      "connectedPeers": {
+        "ios": 1,
+        "android": 1
+      },
+      "p2pTransfer": {
+        "direction": "ios-to-android",
+        "successfulSegments": 5,
+        "receivedBytes": 1501180
+      },
+      "cdnBytesAfterDisablingP2p": 2698176,
+      "clientAndSessionClose": "passed"
+    },
+    "physicalDevices": {
+      "ios": "pending",
+      "android": "pending"
+    }
+  },
+  "publication": {
+    "npm": "blocked-account-suspended-after-successful-auth",
+    "publicNpmInstall": "blocked-unpublished",
+    "exampleManifestAndLockfileUpdate": "pending-publication",
+    "githubPush": "pending",
+    "gitTag": "pending",
+    "blocker": "WebAuthn publish authorization completed successfully, but npm registry still returned E403: account temporarily suspended due to a recent security-sensitive action. Package remains unpublished."
+  },
+  "notes": [
+    "The example temporarily installs the validated candidate tarball without saving it; its manifests retain public npm 1.0.0 until 1.0.1 is published.",
+    "No native binaries were rebuilt or substituted; CocoaPods and Maven resolved public native 1.0.4.",
+    "No physical phones were connected.",
+    "The source changes and release record remain uncommitted until publication verification."
+  ]
+}
