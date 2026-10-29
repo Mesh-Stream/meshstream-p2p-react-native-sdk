@@ -4,6 +4,7 @@
 
 - Upgrade the public iOS dependency to MeshStreamKit 1.0.7 (iOS 15+).
 - Upgrade the public Android dependency to meshstream-android-sdk 1.0.6.
+- Use the public sdk.meshstream.net Maven endpoint in the example and installation guides.
 
 ## 1.0.1
 
