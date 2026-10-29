@@ -1,31 +1,132 @@
 {
   "package": "react-native-meshstream",
   "version": "1.0.2",
-  "status": "validated-candidate",
+  "status": "npm-published",
+  "publishedDate": "2026-10-29",
   "sourceBaseCommit": "5c99021",
+  "artifactSourceCommit": "eca214d643168a6e7628bdc92d562eb7f131f4e0",
   "nativeDependencies": {
-    "ios": {"pod": "MeshStreamKit", "version": "1.0.7", "minimumOS": "iOS 15.0 / macOS 12.0"},
-    "android": {"maven": "io.meshstream:meshstream-android-sdk", "version": "1.0.6"}
+    "ios": {
+      "pod": "MeshStreamKit",
+      "version": "1.0.7",
+      "minimumOS": "iOS 15.0 / macOS 12.0"
+    },
+    "android": {
+      "maven": "io.meshstream:meshstream-android-sdk",
+      "version": "1.0.6"
+    }
+  },
+  "nativeRuntimeVersion": {
+    "ios": "1.0.6",
+    "android": "1.0.6",
+    "note": "The iOS CocoaPods distribution is 1.0.7; its embedded native runtime reports 1.0.6."
   },
   "artifact": {
     "filename": "react-native-meshstream-1.0.2.tgz",
-    "sha256": "cdd465821a25e6daf77a38016dd1c1742dd70699f96918b5dd1376899fb84311",
-    "npmShasum": "52dfc19ca7fb1f0b41abf3a2877fd9d04cb18754",
-    "npmIntegrity": "sha512-i+oNPbqIdw9S4Lt0d8kNFg9VvJ+laYowLo5xi2QvfCKaU4M0UW0kQEC/uPOsOVNAjpLkn+IO529xkLNaDrkz3A==",
-    "fileCount": 28
+    "sha256": "18b3a369292be4878fba1478a550f22511097c8be279c30db132d1d8d4bfcc15",
+    "npmShasum": "805d3518da0b677e880841aa204e3cc18f06e1c0",
+    "npmIntegrity": "sha512-TBPq3oipZ+DoofQxzsBJDrrJuAfKbIDa0NUc7n4+gHKilfM2JCgBRL942HK+fYDNr+TEtKdmpRij6wWlLigmDg==",
+    "fileCount": 28,
+    "url": "https://registry.npmjs.org/react-native-meshstream/-/react-native-meshstream-1.0.2.tgz"
+  },
+  "previousUnpublishedCandidate": {
+    "status": "never-published",
+    "artifact": {
+      "filename": "react-native-meshstream-1.0.2.tgz",
+      "sha256": "cdd465821a25e6daf77a38016dd1c1742dd70699f96918b5dd1376899fb84311",
+      "npmShasum": "52dfc19ca7fb1f0b41abf3a2877fd9d04cb18754",
+      "npmIntegrity": "sha512-i+oNPbqIdw9S4Lt0d8kNFg9VvJ+laYowLo5xi2QvfCKaU4M0UW0kQEC/uPOsOVNAjpLkn+IO529xkLNaDrkz3A==",
+      "fileCount": 28
+    },
+    "publicationSnapshot": {
+      "npm": "pending-authentication",
+      "githubPush": "passed",
+      "gitTag": "pending",
+      "publicNpmInstall": "pending",
+      "blocker": "npm whoami returned E401 in the current shell"
+    }
   },
   "validation": {
     "typecheck": "passed",
-    "nodeTests": {"passed": 9, "failed": 0},
-    "iosDependency": "public MeshStreamKit 1.0.7 resolved; iOS 15 simulator build path exercised",
-    "androidDependency": "public io.meshstream:meshstream-android-sdk:1.0.6 configured",
-    "physicalDevices": "pending"
+    "versionGuards": "passed",
+    "nodeTests": {
+      "passed": 9,
+      "failed": 0
+    },
+    "exampleJest": {
+      "suites": 2,
+      "passed": 5,
+      "failed": 0
+    },
+    "iosPackedArtifactXCTest": {
+      "passed": 2,
+      "failed": 0
+    },
+    "iosPublicExampleXCTest": {
+      "passed": 2,
+      "failed": 0
+    },
+    "androidPublicExampleBuild": "passed arm64-v8a debug using public Maven dependency",
+    "publicNpmInstall": "passed; example and independent consumer installed exact registry version; all 28 installed files match tarball",
+    "publicTypesAndEntrypoints": "passed",
+    "androidPhysicalDevice": {
+      "status": "passed",
+      "model": "PFJM10",
+      "os": "Android 13",
+      "architecture": "arm64-v8a"
+    },
+    "iosSimulator": {
+      "status": "passed",
+      "model": "iPhone 18 Pro",
+      "os": "iOS 27.0",
+      "architecture": "arm64"
+    },
+    "iosPhysicalDevice": "pending",
+    "p2p": {
+      "confirmedDirection": "iOS simulator -> Android physical device",
+      "androidDownloadedBytes": 2181740,
+      "androidHttpBytesAtP2pSnapshot": 719560,
+      "androidSuccessfulP2pSegments": 7,
+      "androidDownloadOffloadRatio": 0.7519870402922828,
+      "iosUploadedBytes": 2520796,
+      "iosSuccessfulUploads": 8,
+      "reverseDirection": "not confirmed"
+    },
+    "cdnFallback": {
+      "ios": {
+        "httpBytesBefore": 3461960,
+        "httpBytesAfter": 6836318,
+        "httpBytesDelta": 3374358,
+        "connectedPeersAfter": 0,
+        "httpSegmentFailuresAfter": 2
+      },
+      "android": {
+        "httpBytesBefore": 719560,
+        "httpBytesAfter": 2558996,
+        "httpBytesDelta": 1839436,
+        "connectedPeersAfter": 0,
+        "httpSegmentFailuresAfter": 0
+      }
+    },
+    "sessionAndClientClose": "passed both platforms",
+    "clientAndSessionIsolation": "passed both platforms",
+    "playerErrors": 0,
+    "limitations": [
+      "iOS physical-device acceptance pending",
+      "Android -> iOS payload sharing not confirmed",
+      "iOS HTTP segment failures: 2 by final fallback snapshot; playback continued",
+      "P2P misses/upload failures occurred; see publication report",
+      "setP2pEnabled(false) tested controlled CDN fallback, not abrupt peer/network failure"
+    ]
   },
   "publication": {
-    "npm": "pending-authentication",
-    "githubPush": "passed",
-    "gitTag": "pending",
-    "publicNpmInstall": "pending",
-    "blocker": "npm whoami returned E401 in the current shell"
-  }
+    "npm": "passed",
+    "publicNpmInstall": "passed",
+    "github": {
+      "repository": "https://github.com/Mesh-Stream/meshstream-p2p-react-native-sdk",
+      "branch": "main",
+      "tag": "1.0.2"
+    }
+  },
+  "report": "docs/releases/1.0.2-publication.md"
 }
