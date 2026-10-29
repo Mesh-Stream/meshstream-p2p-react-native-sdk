@@ -1,0 +1,31 @@
+{
+  "package": "react-native-meshstream",
+  "version": "1.0.2",
+  "status": "validated-candidate",
+  "sourceBaseCommit": "5c99021",
+  "nativeDependencies": {
+    "ios": {"pod": "MeshStreamKit", "version": "1.0.7", "minimumOS": "iOS 15.0 / macOS 12.0"},
+    "android": {"maven": "io.meshstream:meshstream-android-sdk", "version": "1.0.6"}
+  },
+  "artifact": {
+    "filename": "react-native-meshstream-1.0.2.tgz",
+    "sha256": "cdd465821a25e6daf77a38016dd1c1742dd70699f96918b5dd1376899fb84311",
+    "npmShasum": "52dfc19ca7fb1f0b41abf3a2877fd9d04cb18754",
+    "npmIntegrity": "sha512-i+oNPbqIdw9S4Lt0d8kNFg9VvJ+laYowLo5xi2QvfCKaU4M0UW0kQEC/uPOsOVNAjpLkn+IO529xkLNaDrkz3A==",
+    "fileCount": 28
+  },
+  "validation": {
+    "typecheck": "passed",
+    "nodeTests": {"passed": 9, "failed": 0},
+    "iosDependency": "public MeshStreamKit 1.0.7 resolved; iOS 15 simulator build path exercised",
+    "androidDependency": "public io.meshstream:meshstream-android-sdk:1.0.6 configured",
+    "physicalDevices": "pending"
+  },
+  "publication": {
+    "npm": "pending-authentication",
+    "githubPush": "passed",
+    "gitTag": "pending",
+    "publicNpmInstall": "pending",
+    "blocker": "npm whoami returned E401 in the current shell"
+  }
+}
