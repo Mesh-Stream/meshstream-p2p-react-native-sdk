@@ -20,7 +20,11 @@
     "iosPublicVerification": "passed: npm run verify:ios:public; 2 XCTest cases",
     "androidPublicExample": "passed: public Maven io.meshstream:meshstream-android-sdk:1.0.7 example build",
     "npmPack": "passed: react-native-meshstream-1.0.3.tgz; shasum e46c9790eee475acddeaf0945f675a7616c2d4f1",
-    "npmPublish": "blocked: npm authentication required"
+    "npmPublish": "passed: npm registry version 1.0.3; shasum e46c9790eee475acddeaf0945f675a7616c2d4f1"
   },
-  "status": "ready-to-publish"
+  "status": "published",
+  "publication": {
+    "githubPush": "passed: main and tag 1.0.3",
+    "npm": "published: https://www.npmjs.com/package/react-native-meshstream/v/1.0.3"
+  }
 }
