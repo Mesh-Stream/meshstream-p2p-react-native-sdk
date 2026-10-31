@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.3 - 2026-10-31
+
+- Updates the iOS dependency to MeshStreamKit 1.0.8 and Android dependency to meshstream-android-sdk 1.0.7.
+- Includes the native proxy shutdown fix while preserving the existing React Native lifecycle API.
+
 ## 1.0.2
 
 - Upgrade the public iOS dependency to MeshStreamKit 1.0.7 (iOS 15+).

@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = 'MeshStreamP2P'
-  s.version      = '1.0.2'
+  s.version      = '1.0.3'
   s.summary      = 'MeshStream P2P playback URL bridge for React Native.'
   s.homepage     = 'https://github.com/Mesh-Stream/meshstream-p2p-react-native-sdk'
   s.license      = { :type => 'Apache-2.0' }
@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   s.public_header_files = 'ios/MeshStreamP2P.h'
   s.private_header_files = 'ios/MeshStreamP2PValidation.h'
   s.dependency 'React-Core'
-  s.dependency 'MeshStreamKit', '= 1.0.7'
+  s.dependency 'MeshStreamKit', '= 1.0.8'
   s.frameworks = 'Foundation', 'Network', 'Security'
 
   s.test_spec 'Validation' do |test_spec|

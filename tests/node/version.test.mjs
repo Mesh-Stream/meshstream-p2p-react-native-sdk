@@ -33,13 +33,13 @@ function loadSdk(platform, getSdkVersion) {
 
 for (const platform of ['ios', 'android']) {
   test(`${platform} reports the loaded native version before client creation`, async () => {
-    let nativeVersion = '1.0.6';
+    let nativeVersion = '1.0.7';
     let reads = 0;
     const sdk = loadSdk(platform, async () => { reads++; return nativeVersion; });
-    assert.equal(await sdk.getSdkVersion(), '1.0.6');
+    assert.equal(await sdk.getSdkVersion(), '1.0.7');
     assert.deepEqual(JSON.parse(JSON.stringify(await sdk.getVersion())), {
       packageVersion,
-      nativeSdkVersion: '1.0.6',
+      nativeSdkVersion: '1.0.7',
       platform,
     });
     nativeVersion = '1.0.5';

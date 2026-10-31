@@ -1,0 +1,26 @@
+{
+  "package": "react-native-meshstream",
+  "version": "1.0.3",
+  "nativeDependencies": {
+    "ios": {
+      "pod": "MeshStreamKit",
+      "version": "1.0.8",
+      "minimumOS": "iOS 15.0"
+    },
+    "android": {
+      "maven": "io.meshstream:meshstream-android-sdk",
+      "version": "1.0.7",
+      "minSdk": 24
+    }
+  },
+  "sourceRevision": "2cc8614",
+  "validation": {
+    "typecheck": "passed: npm run typecheck",
+    "nodeTests": "passed: npm test",
+    "iosPublicVerification": "passed: npm run verify:ios:public; 2 XCTest cases",
+    "androidPublicExample": "passed: public Maven io.meshstream:meshstream-android-sdk:1.0.7 example build",
+    "npmPack": "passed: react-native-meshstream-1.0.3.tgz; shasum e46c9790eee475acddeaf0945f675a7616c2d4f1",
+    "npmPublish": "blocked: npm authentication required"
+  },
+  "status": "ready-to-publish"
+}

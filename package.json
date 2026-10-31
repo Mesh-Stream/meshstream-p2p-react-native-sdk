@@ -1,6 +1,6 @@
 {
   "name": "react-native-meshstream",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "MeshStream P2P playback URL SDK for React Native",
   "main": "lib/typescript/index.js",
   "module": "lib/typescript/index.js",
