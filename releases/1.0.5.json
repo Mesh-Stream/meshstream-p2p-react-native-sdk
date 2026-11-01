@@ -32,13 +32,23 @@
     "versionCheck": "passed",
     "android": "passed: candidate example Debug and Release builds, four ABIs; plugin Debug and Release lint",
     "ios": "passed: packaged candidate 2 XCTest cases, example 2 XCTest cases; generic simulator build arm64 and x86_64",
-    "nativeArtifacts": "passed: APK native-core libraries match official AAR 1.0.9; 64-bit core and C++ runtime LOAD alignment >=16 KB"
+    "nativeArtifacts": "passed: APK native-core libraries match official AAR 1.0.9; 64-bit core and C++ runtime LOAD alignment >=16 KB",
+    "publicInstall": "passed: exact npm version in clean consumer and example lock; entrypoints, types, podspec, Android manifest and autolinking present; public tgz byte-identical to candidate",
+    "androidPublicExample": "passed: Debug and Release APK builds with npm 1.0.5 and public Maven 1.0.9",
+    "androidSimulatorCdnRuntime": "passed: candidate Release APK on ARM64 Android 15 AVD, RN 1.0.5 / native 1.0.9 displayed, real HLS frames through loopback proxy; close released proxy listener; placeholder key, CDN path only",
+    "iosPublicExample": "passed: npm 1.0.5 example, CocoaPods MeshStreamKit 1.0.8, 2 XCTest cases with zero failures on iOS simulator"
   },
-  "publication": {},
-  "status": "validated candidate",
+  "publication": {
+    "npm": "published: https://www.npmjs.com/package/react-native-meshstream/v/1.0.5",
+    "publicInstall": "verified: exact public package integrity, clean consumer, example Android Debug/Release and iOS XCTest",
+    "github": "main and tag 1.0.5"
+  },
+  "status": "published",
   "artifact": {
     "file": "react-native-meshstream-1.0.5.tgz",
     "sha256": "d74a5642d1f513d32539082bc1b9afa319468caf8154d5dc176bef988533b3cf",
-    "shasum": "6845a100f424f02f3ba372eb0cc56e40499b3b62"
+    "shasum": "6845a100f424f02f3ba372eb0cc56e40499b3b62",
+    "url": "https://registry.npmjs.org/react-native-meshstream/-/react-native-meshstream-1.0.5.tgz",
+    "integrity": "sha512-KzbnNA23RPvrUArIskUN03hHcGMlna0+Zty501JjLwqbsLgUwue5Xu5d3mHUhr4lUsJ3IuaOxI5xmUdGEGKkkA=="
   }
 }

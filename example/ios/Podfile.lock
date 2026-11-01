@@ -9,7 +9,7 @@ PODS:
     - hermes-engine/Pre-built (= 0.76.9)
   - hermes-engine/Pre-built (0.76.9)
   - MeshStreamKit (1.0.8)
-  - MeshStreamP2P (1.0.4):
+  - MeshStreamP2P (1.0.5):
     - MeshStreamKit (= 1.0.8)
     - React-Core
   - RCT-Folly (2024.10.14.00):
@@ -1849,7 +1849,7 @@ SPEC CHECKSUMS:
   glog: 08b301085f15bcbb6ff8632a8ebaf239aae04e6a
   hermes-engine: 9e868dc7be781364296d6ee2f56d0c1a9ef0bb11
   MeshStreamKit: d7485575232357a572aac93c45a23f605fed704f
-  MeshStreamP2P: f495386b72b8ed8b0b1448e1756bb9800cd966ac
+  MeshStreamP2P: cbfc1b3c3e5c4bec0c3a15aac326362d1505e3cd
   RCT-Folly: ea9d9256ba7f9322ef911169a9f696e5857b9e17
   RCTDeprecation: ebe712bb05077934b16c6bf25228bdec34b64f83
   RCTRequired: ca91e5dd26b64f577b528044c962baf171c6b716
