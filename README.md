@@ -8,8 +8,10 @@ React Native binding for MeshStream P2P playback acceleration. It creates a CDN-
 
 ## Requirements
 
+The Android dependency includes `armeabi-v7a`, `arm64-v8a`, `x86`, and `x86_64` for matching devices and emulators. Your app must also meet the OS and architecture requirements of its framework and player.
+
 - React Native `0.72+`
-- Plugin Android declaration: API 21+; iOS: 15+. The host must also meet its React Native and player requirements. React Native 0.72 targets API 21; the verified 0.76.9 example requires API 24 and iOS 15.1. API 21 device acceptance is pending.
+- Plugin Android declaration: API 21+; iOS: 15+. The host must also meet its React Native and player requirements. The bundled example uses React Native 0.76.9 and requires Android API 24+ and iOS 15.1+.
 - MeshStream SDK key enabled for the target platform
 
 ## Install
@@ -32,6 +34,21 @@ repositories {
 ```
 
 For iOS, the bridge resolves the published `MeshStreamKit 1.0.8` CocoaPod. After installation, run `pod install --repo-update` from the app's `ios` directory and rebuild the native app.
+
+## Android local playback proxy
+
+The playback URL uses an HTTP loopback proxy. In your app manifest, add `android:networkSecurityConfig="@xml/meshstream_network_security_config"` to `<application>` and create `res/xml/meshstream_network_security_config.xml` with:
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <base-config cleartextTrafficPermitted="false" />
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="false">127.0.0.1</domain>
+        <domain includeSubdomains="false">localhost</domain>
+    </domain-config>
+</network-security-config>
+```
 
 ## Basic usage
 
@@ -109,7 +126,7 @@ Read version information before creating a client when attaching diagnostics to 
 ```ts
 const sdkVersion = await MeshStream.getSdkVersion();
 const version = await MeshStream.getVersion();
-// { packageVersion: '1.0.4', nativeSdkVersion: '1.0.8', platform: 'android' }
+// { packageVersion: '1.0.5', nativeSdkVersion: '1.0.9', platform: 'android' }
 ```
 
 Available event types: `peerCountChanged`, `playbackPrepared`, `p2pReady`, `p2pUnavailable`, `statistics`, `cdnFallback`, `trackerError`, and `peerConnectError`.
@@ -124,13 +141,13 @@ The package is a unified JavaScript layer, not an Android SDK repackaged for Rea
 
 ### Versioning
 
-- `react-native-meshstream` follows its own React Native package version. This release is `1.0.4`.
-- The Android bridge keeps its independent native dependency: `io.meshstream:meshstream-android-sdk:1.0.8`.
+- `react-native-meshstream` follows its own React Native package version. This release is `1.0.5`.
+- The Android bridge keeps its independent native dependency: `io.meshstream:meshstream-android-sdk:1.0.9`.
 - The iOS bridge keeps its independent native dependency: `MeshStreamKit 1.0.8`.
 
 Updating the React Native package does not implicitly upgrade either native SDK.
 
-- Android resolves `io.meshstream:meshstream-android-sdk:1.0.8` from the MeshStream Maven repository.
+- Android resolves `io.meshstream:meshstream-android-sdk:1.0.9` from the MeshStream Maven repository.
 - iOS resolves the public `MeshStreamKit 1.0.8` CocoaPod.
 
 Both bridges maintain client/session isolation. Closing a client only closes its own sessions and never interrupts another React Native player in the same process.

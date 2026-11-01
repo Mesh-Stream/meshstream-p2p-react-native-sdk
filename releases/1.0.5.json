@@ -1,0 +1,44 @@
+{
+  "package": "react-native-meshstream",
+  "version": "1.0.5",
+  "nativeDependencies": {
+    "android": {
+      "maven": "io.meshstream:meshstream-android-sdk",
+      "version": "1.0.9",
+      "minSdk": 21,
+      "abi": [
+        "armeabi-v7a",
+        "arm64-v8a",
+        "x86",
+        "x86_64"
+      ],
+      "aarSha256": "05fe7f9e588cc893e61a34e6e6be410cfb06b47a8e0c692b78e7be2c85d60a43"
+    },
+    "ios": {
+      "pod": "MeshStreamKit",
+      "version": "1.0.8",
+      "runtimeVersion": "1.0.7",
+      "minimumOS": "iOS 15.0"
+    }
+  },
+  "compatibility": {
+    "effectiveMinimum": "max(plugin, framework/runtime, player)",
+    "exampleMinSdk": 24
+  },
+  "validation": {
+    "typecheck": "passed",
+    "nodeTests": "passed: 9 tests",
+    "exampleTests": "passed: 5 tests",
+    "versionCheck": "passed",
+    "android": "passed: candidate example Debug and Release builds, four ABIs; plugin Debug and Release lint",
+    "ios": "passed: packaged candidate 2 XCTest cases, example 2 XCTest cases; generic simulator build arm64 and x86_64",
+    "nativeArtifacts": "passed: APK native-core libraries match official AAR 1.0.9; 64-bit core and C++ runtime LOAD alignment >=16 KB"
+  },
+  "publication": {},
+  "status": "validated candidate",
+  "artifact": {
+    "file": "react-native-meshstream-1.0.5.tgz",
+    "sha256": "d74a5642d1f513d32539082bc1b9afa319468caf8154d5dc176bef988533b3cf",
+    "shasum": "6845a100f424f02f3ba372eb0cc56e40499b3b62"
+  }
+}

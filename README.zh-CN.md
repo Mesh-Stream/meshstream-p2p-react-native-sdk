@@ -8,8 +8,10 @@
 
 ## 环境要求
 
+Android 依赖包含 `armeabi-v7a`、`arm64-v8a`、`x86` 和 `x86_64`，可用于相应架构的真机与模拟器；应用仍需满足框架、基座及播放器的系统和架构要求。
+
 - React Native `0.72+`
-- 插件 Android 声明下限为 API 21，iOS 为 15+；应用还需满足 React Native 和播放器要求。React Native 0.72 以 API 21 为目标，本次验证的 0.76.9 示例要求 API 24、iOS 15.1。API 21 真机验收待完成。
+- 插件 Android 声明下限为 API 21，iOS 为 15+；应用还需满足 React Native 和播放器要求。示例使用 React Native 0.76.9，需要 Android API 24 及以上、iOS 15.1 及以上。
 - 已启用对应目标平台的 MeshStream SDK Key
 
 ## 安装
@@ -32,6 +34,21 @@ repositories {
 ```
 
 接入 iOS 时，bridge 会解析已发布的 `MeshStreamKit 1.0.8` CocoaPod。安装 npm 包后，请在应用的 `ios` 目录执行 `pod install --repo-update` 并重新编译原生工程。
+
+## Android 本地播放代理
+
+播放地址使用本机 HTTP 回环代理。在应用 Manifest 的 `<application>` 中添加 `android:networkSecurityConfig="@xml/meshstream_network_security_config"`，并创建 `res/xml/meshstream_network_security_config.xml`：
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <base-config cleartextTrafficPermitted="false" />
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="false">127.0.0.1</domain>
+        <domain includeSubdomains="false">localhost</domain>
+    </domain-config>
+</network-security-config>
+```
 
 ## 基础接入
 
@@ -109,7 +126,7 @@ subscription.remove();
 ```ts
 const sdkVersion = await MeshStream.getSdkVersion();
 const version = await MeshStream.getVersion();
-// { packageVersion: '1.0.4', nativeSdkVersion: '1.0.8', platform: 'android' }
+// { packageVersion: '1.0.5', nativeSdkVersion: '1.0.9', platform: 'android' }
 ```
 
 事件类型包括：`peerCountChanged`、`playbackPrepared`、`p2pReady`、`p2pUnavailable`、`statistics`、`cdnFallback`、`trackerError`、`peerConnectError`。
@@ -124,13 +141,13 @@ const version = await MeshStream.getVersion();
 
 ### 版本说明
 
-- `react-native-meshstream` 使用独立的 React Native 包版本；当前版本为 `1.0.4`。
-- Android 桥接使用独立的原生依赖：`io.meshstream:meshstream-android-sdk:1.0.8`。
+- `react-native-meshstream` 使用独立的 React Native 包版本；当前版本为 `1.0.5`。
+- Android 桥接使用独立的原生依赖：`io.meshstream:meshstream-android-sdk:1.0.9`。
 - iOS 桥接使用独立的原生依赖：`MeshStreamKit 1.0.8`。
 
 升级 React Native 包不会隐式升级任一原生 SDK。
 
-- Android 从 MeshStream Maven 仓库解析 `io.meshstream:meshstream-android-sdk:1.0.8`。
+- Android 从 MeshStream Maven 仓库解析 `io.meshstream:meshstream-android-sdk:1.0.9`。
 - iOS 通过 CocoaPods 解析公开的 `MeshStreamKit 1.0.8`。
 
 两个 bridge 都保证 client/session 隔离。关闭某一个 client 只会关闭其所属会话，不会中断同一进程中的其他 React Native 播放器。
