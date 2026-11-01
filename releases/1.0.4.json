@@ -32,7 +32,7 @@
     "ios": "passed: packaged SDK 2 XCTest cases, public npm example 2 XCTest cases",
     "publicNpm": "passed: independent installation and TypeScript consumer; archive and installed files match verified candidate",
     "androidDevice": "pending: no connected device",
-    "iosDevice": "pending: no connected device",
+    "iosDevice": "pending: wireless paired iPhone locked; runtime acceptance not performed",
     "api21Device": "pending"
   },
   "publication": {
