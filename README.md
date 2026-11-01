@@ -31,7 +31,7 @@ repositories {
 }
 ```
 
-For iOS, the bridge resolves the public `MeshStreamKit 1.0.8` CocoaPod. After installation, run `pod install --repo-update` from the app's `ios` directory and rebuild the native app. Do not add a local `MeshStreamKit` pod path or embed its XCFramework yourself.
+For iOS, the bridge resolves the published `MeshStreamKit 1.0.8` CocoaPod. After installation, run `pod install --repo-update` from the app's `ios` directory and rebuild the native app.
 
 ## Basic usage
 

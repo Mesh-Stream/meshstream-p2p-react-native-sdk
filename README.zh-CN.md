@@ -31,7 +31,7 @@ repositories {
 }
 ```
 
-接入 iOS 时，bridge 会解析公开的 `MeshStreamKit 1.0.8` CocoaPod。安装 npm 包后，请在应用的 `ios` 目录执行 `pod install --repo-update` 并重新编译原生工程；不要添加本地 `MeshStreamKit` Pod 路径，也不需要手动嵌入 XCFramework。
+接入 iOS 时，bridge 会解析已发布的 `MeshStreamKit 1.0.8` CocoaPod。安装 npm 包后，请在应用的 `ios` 目录执行 `pod install --repo-update` 并重新编译原生工程。
 
 ## 基础接入
 
