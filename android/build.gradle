@@ -12,12 +12,12 @@ android {
   compileSdkVersion 35
 
   defaultConfig {
-    minSdkVersion 24
+    minSdkVersion 21
   }
 }
 
 dependencies {
   implementation 'com.facebook.react:react-android'
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
-  implementation 'io.meshstream:meshstream-android-sdk:1.0.7'
+  implementation 'io.meshstream:meshstream-android-sdk:1.0.8'
 }

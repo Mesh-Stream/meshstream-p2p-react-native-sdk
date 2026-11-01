@@ -9,7 +9,7 @@ React Native binding for MeshStream P2P playback acceleration. It creates a CDN-
 ## Requirements
 
 - React Native `0.72+`
-- Android API 24+ (Android 7.0+) or iOS 15+
+- Plugin Android declaration: API 21+; iOS: 15+. The host must also meet its React Native and player requirements. React Native 0.72 targets API 21; the verified 0.76.9 example requires API 24 and iOS 15.1. API 21 device acceptance is pending.
 - MeshStream SDK key enabled for the target platform
 
 ## Install
@@ -109,7 +109,7 @@ Read version information before creating a client when attaching diagnostics to 
 ```ts
 const sdkVersion = await MeshStream.getSdkVersion();
 const version = await MeshStream.getVersion();
-// { packageVersion: '1.0.3', nativeSdkVersion: '1.0.7', platform: 'android' }
+// { packageVersion: '1.0.4', nativeSdkVersion: '1.0.8', platform: 'android' }
 ```
 
 Available event types: `peerCountChanged`, `playbackPrepared`, `p2pReady`, `p2pUnavailable`, `statistics`, `cdnFallback`, `trackerError`, and `peerConnectError`.
@@ -124,13 +124,13 @@ The package is a unified JavaScript layer, not an Android SDK repackaged for Rea
 
 ### Versioning
 
-- `react-native-meshstream` follows its own React Native package version. This release is `1.0.3`.
-- The Android bridge keeps its independent native dependency: `io.meshstream:meshstream-android-sdk:1.0.7`.
+- `react-native-meshstream` follows its own React Native package version. This release is `1.0.4`.
+- The Android bridge keeps its independent native dependency: `io.meshstream:meshstream-android-sdk:1.0.8`.
 - The iOS bridge keeps its independent native dependency: `MeshStreamKit 1.0.8`.
 
 Updating the React Native package does not implicitly upgrade either native SDK.
 
-- Android resolves `io.meshstream:meshstream-android-sdk:1.0.7` from the MeshStream Maven repository.
+- Android resolves `io.meshstream:meshstream-android-sdk:1.0.8` from the MeshStream Maven repository.
 - iOS resolves the public `MeshStreamKit 1.0.8` CocoaPod.
 
 Both bridges maintain client/session isolation. Closing a client only closes its own sessions and never interrupts another React Native player in the same process.

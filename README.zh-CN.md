@@ -9,7 +9,7 @@
 ## 环境要求
 
 - React Native `0.72+`
-- Android API 24+（Android 7.0+）或 iOS 15+
+- 插件 Android 声明下限为 API 21，iOS 为 15+；应用还需满足 React Native 和播放器要求。React Native 0.72 以 API 21 为目标，本次验证的 0.76.9 示例要求 API 24、iOS 15.1。API 21 真机验收待完成。
 - 已启用对应目标平台的 MeshStream SDK Key
 
 ## 安装
@@ -109,7 +109,7 @@ subscription.remove();
 ```ts
 const sdkVersion = await MeshStream.getSdkVersion();
 const version = await MeshStream.getVersion();
-// { packageVersion: '1.0.3', nativeSdkVersion: '1.0.7', platform: 'android' }
+// { packageVersion: '1.0.4', nativeSdkVersion: '1.0.8', platform: 'android' }
 ```
 
 事件类型包括：`peerCountChanged`、`playbackPrepared`、`p2pReady`、`p2pUnavailable`、`statistics`、`cdnFallback`、`trackerError`、`peerConnectError`。
@@ -124,13 +124,13 @@ const version = await MeshStream.getVersion();
 
 ### 版本说明
 
-- `react-native-meshstream` 使用独立的 React Native 包版本；当前版本为 `1.0.3`。
-- Android 桥接使用独立的原生依赖：`io.meshstream:meshstream-android-sdk:1.0.7`。
+- `react-native-meshstream` 使用独立的 React Native 包版本；当前版本为 `1.0.4`。
+- Android 桥接使用独立的原生依赖：`io.meshstream:meshstream-android-sdk:1.0.8`。
 - iOS 桥接使用独立的原生依赖：`MeshStreamKit 1.0.8`。
 
 升级 React Native 包不会隐式升级任一原生 SDK。
 
-- Android 从 MeshStream Maven 仓库解析 `io.meshstream:meshstream-android-sdk:1.0.7`。
+- Android 从 MeshStream Maven 仓库解析 `io.meshstream:meshstream-android-sdk:1.0.8`。
 - iOS 通过 CocoaPods 解析公开的 `MeshStreamKit 1.0.8`。
 
 两个 bridge 都保证 client/session 隔离。关闭某一个 client 只会关闭其所属会话，不会中断同一进程中的其他 React Native 播放器。
