@@ -1,4 +1,4 @@
-import { DeviceEventEmitter, Platform, type EmitterSubscription } from 'react-native';
+import { DeviceEventEmitter, NativeEventEmitter, Platform, type EmitterSubscription } from 'react-native';
 
 import { requireNativeModule } from './NativeMeshStreamP2P';
 import { MESHSTREAM_REACT_NATIVE_VERSION } from './version';
@@ -17,6 +17,7 @@ import type {
 export * from './types';
 
 const EVENT_NAME = 'MeshStreamP2P:event';
+let iosEventEmitter: NativeEventEmitter | undefined;
 
 function assertNonEmpty(value: string | undefined, field: string): asserts value is string {
   if (!value?.trim()) throw new Error(`${field} must not be empty.`);
@@ -158,6 +159,10 @@ export const MeshStream = {
   },
 
   addEventListener(listener: (event: MeshStreamEvent) => void): EmitterSubscription {
+    if (Platform.OS === 'ios') {
+      iosEventEmitter ??= new NativeEventEmitter(requireNativeModule());
+      return iosEventEmitter.addListener(EVENT_NAME, listener);
+    }
     return DeviceEventEmitter.addListener(EVENT_NAME, listener);
   },
 };

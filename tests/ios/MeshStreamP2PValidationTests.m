@@ -9,7 +9,7 @@
 @implementation MeshStreamP2PValidationTests
 
 - (void)testNativeVersionIsAvailableBeforeCreatingClient {
-    XCTAssertEqualObjects([P2PSDK getSdkVersion], @"1.0.7");
+    XCTAssertEqualObjects([P2PSDK getSdkVersion], @"1.0.10");
 }
 
 - (void)testTrimsURLsAndFiltersNonStringHeaders {

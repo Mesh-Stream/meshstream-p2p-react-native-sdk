@@ -33,7 +33,7 @@ repositories {
 }
 ```
 
-For iOS, the bridge resolves the published `MeshStreamKit 1.0.8` CocoaPod. After installation, run `pod install --repo-update` from the app's `ios` directory and rebuild the native app.
+For iOS, the bridge resolves the published `MeshStreamKit 1.0.10` CocoaPod. After installation, run `pod install --repo-update` from the app's `ios` directory and rebuild the native app.
 
 ## Android local playback proxy
 
@@ -126,7 +126,7 @@ Read version information before creating a client when attaching diagnostics to 
 ```ts
 const sdkVersion = await MeshStream.getSdkVersion();
 const version = await MeshStream.getVersion();
-// { packageVersion: '1.0.5', nativeSdkVersion: '1.0.9', platform: 'android' }
+// { packageVersion: '1.0.6', nativeSdkVersion: '1.0.10', platform: 'android' }
 ```
 
 Available event types: `peerCountChanged`, `playbackPrepared`, `p2pReady`, `p2pUnavailable`, `statistics`, `cdnFallback`, `trackerError`, and `peerConnectError`.
@@ -141,13 +141,13 @@ The package is a unified JavaScript layer, not an Android SDK repackaged for Rea
 
 ### Versioning
 
-- `react-native-meshstream` follows its own React Native package version. This release is `1.0.5`.
-- The Android bridge keeps its independent native dependency: `io.meshstream:meshstream-android-sdk:1.0.9`.
-- The iOS bridge keeps its independent native dependency: `MeshStreamKit 1.0.8`.
+- `react-native-meshstream` follows its own React Native package version. This release is `1.0.6`.
+- The Android bridge keeps its independent native dependency: `io.meshstream:meshstream-android-sdk:1.0.10`.
+- The iOS bridge keeps its independent native dependency: `MeshStreamKit 1.0.10`.
 
 Updating the React Native package does not implicitly upgrade either native SDK.
 
-- Android resolves `io.meshstream:meshstream-android-sdk:1.0.9` from the MeshStream Maven repository.
-- iOS resolves the public `MeshStreamKit 1.0.8` CocoaPod.
+- Android resolves `io.meshstream:meshstream-android-sdk:1.0.10` from the MeshStream Maven repository.
+- iOS resolves the public `MeshStreamKit 1.0.10` CocoaPod.
 
 Both bridges maintain client/session isolation. Closing a client only closes its own sessions and never interrupts another React Native player in the same process.

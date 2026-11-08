@@ -10,6 +10,9 @@ import type {
 } from './types';
 
 interface NativeMeshStreamP2P {
+  // Inherited from RCTEventEmitter on iOS; used by NativeEventEmitter.
+  addListener(eventType: string): void;
+  removeListeners(count: number): void;
   getSdkVersion(): Promise<string>;
   createClient(config: MeshStreamConfig): Promise<{ clientId: string; status: MeshStreamStatus }>;
   createPlaybackSession(clientId: string, options: PlaybackSessionOptions): Promise<MeshStreamSessionInfo>;

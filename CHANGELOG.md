@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.6 - 2026-11-09
+
+- Fix iOS event subscriptions to register and release native listeners.
+
+- Upgrade both iOS MeshStreamKit and the Android native SDK to 1.0.10.
+- Retain Android API 21+, iOS 15+, and all four Android ABIs.
+- Update native version checks and integration guidance.
+
 ## 1.0.5 - 2026-11-01
 
 - Upgrade Android to meshstream-android-sdk 1.0.9 with armeabi-v7a, arm64-v8a, x86, and x86_64.
