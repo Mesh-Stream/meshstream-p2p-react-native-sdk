@@ -13,16 +13,16 @@ current platform, and loaded native SDK version using `MeshStream.getVersion()`.
 - React Native development environment for Android or iOS
 - An Android or iOS SDK key created in the MeshStream console
 
-For Android testing, use an ARM64 physical device. The current Android native
-artifact is published for `arm64-v8a`; x86 and x86_64 emulators require an ABI
-compatible build.
+The example requires Android API 24+ or iOS 15.1+. Its Android SDK includes
+`armeabi-v7a`, `arm64-v8a`, `x86` and `x86_64`; choose a device or emulator
+also supported by React Native and the player.
 
 ## Run
 
 Install dependencies from this directory:
 
 ```bash
-npm install
+npm ci
 ```
 
 Start Metro in one terminal:
