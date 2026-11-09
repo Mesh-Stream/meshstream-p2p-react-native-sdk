@@ -1,10 +1,17 @@
-# MeshStream React Native SDK
+# MeshStream P2P React Native SDK
 
-面向 React Native 的 MeshStream P2P 播放加速绑定。SDK 返回可直接交给播放器的本地代理播放地址；应用可继续使用 `react-native-video` 或现有播放器。SDK 不内置播放器，也不接管播放器生命周期。
+[English](README.md) · [官网](https://meshstream.net/zh/) · [接入文档](https://meshstream.net/zh/docs/sdk/react-native-setup/) · [npm](https://www.npmjs.com/package/react-native-meshstream) · [在线 Demo](https://demo.meshstream.net/)
 
-> 这是一个统一的跨端 React Native 包：Android 运行时桥接 MeshStream Android SDK，iOS 运行时桥接 MeshStreamKit。两端使用相同的 JavaScript API、client/session 生命周期和事件模型。
+MeshStream 是面向 Android 和 iOS 的 React Native P2P 视频与音频流媒体 SDK。`react-native-meshstream` 通过统一的 JavaScript / TypeScript API 提供本地播放地址、Peer 事件与流量统计，并支持 HTTP/CDN 回退。可接入 `react-native-video` 或其他兼容播放器，播放与渲染由应用管理。
 
-[English](./README.md) | [Web SDK](https://github.com/Mesh-Stream/meshstream-p2p-web-sdk) | [Android SDK](https://github.com/Mesh-Stream/meshstream-p2p-android-sdk) | [iOS SDK](https://github.com/Mesh-Stream/meshstream-p2p-ios-sdk) | [Windows SDK](https://github.com/Mesh-Stream/meshstream-p2p-Windows-sdk) | [在线 Demo](https://demo.meshstream.net/)
+## 产品能力
+
+- 通过原生 SDK 接入 HLS、MPEG-DASH 和支持 HTTP Range 的 MP4/MP3。
+- Android 与 iOS 使用统一的 JavaScript / TypeScript client/session API。
+- 支持预加载、播放位置与缓冲回传、Peer 事件和 P2P/CDN 统计。
+- 通过 npm 安装，支持原生自动链接，提供 `react-native-video` 示例应用。
+
+媒体解码与格式兼容性取决于所选播放器和平台；P2P 可用性取决于网络条件及持有相同内容的 Peer。
 
 ## 环境要求
 
@@ -151,3 +158,12 @@ const version = await MeshStream.getVersion();
 - iOS 通过 CocoaPods 解析公开的 `MeshStreamKit 1.0.10`。
 
 两个 bridge 都保证 client/session 隔离。关闭某一个 client 只会关闭其所属会话，不会中断同一进程中的其他 React Native 播放器。
+
+## 其他 MeshStream SDK
+
+- [Web](https://github.com/Mesh-Stream/meshstream-p2p-web-sdk): JavaScript / TypeScript、WebRTC 与浏览器播放器.
+- [iOS / macOS](https://github.com/Mesh-Stream/meshstream-p2p-ios-sdk): MeshStreamKit、Swift / Objective-C、SPM 与 CocoaPods.
+- [Android](https://github.com/Mesh-Stream/meshstream-p2p-android-sdk): Kotlin / Java、Maven 与 Media3 / ExoPlayer.
+- [Windows](https://github.com/Mesh-Stream/meshstream-p2p-Windows-sdk): 面向 Windows 10 / 11 x64 的 C / C++ 接口.
+- [uni-app](https://github.com/Mesh-Stream/meshstream-p2p-uniapp-sdk): 面向 iOS / Android App 的 UTS / JavaScript 插件.
+- [Flutter](https://github.com/Mesh-Stream/meshstream-p2p-flutter-sdk): 面向 iOS / Android 的 Dart 插件及 video_player 示例.

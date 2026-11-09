@@ -1,10 +1,17 @@
-# MeshStream React Native SDK
+# MeshStream P2P React Native SDK
 
-React Native binding for MeshStream P2P playback acceleration. It creates a CDN-safe local playback URL; use that URL with `react-native-video` or your existing player. The SDK does not include a player and does not control your player lifecycle.
+[简体中文](README.zh-CN.md) · [Website](https://meshstream.net/) · [Documentation](https://meshstream.net/docs/sdk/react-native-setup/) · [npm](https://www.npmjs.com/package/react-native-meshstream) · [Live demo](https://demo.meshstream.net/)
 
-> This is one cross-platform React Native package. It bridges to the MeshStream Android SDK on Android and MeshStreamKit on iOS. The JavaScript API and client/session lifecycle are identical on both platforms.
+MeshStream is a React Native P2P video and audio streaming SDK for Android and iOS. The `react-native-meshstream` package provides a shared JavaScript / TypeScript API for local playback URLs, peer events and traffic statistics, with HTTP/CDN fallback. Use it with `react-native-video` or another compatible player; your application owns playback and rendering.
 
-[中文文档](./README.zh-CN.md) | [Web SDK](https://github.com/Mesh-Stream/meshstream-p2p-web-sdk) | [Android SDK](https://github.com/Mesh-Stream/meshstream-p2p-android-sdk) | [iOS SDK](https://github.com/Mesh-Stream/meshstream-p2p-ios-sdk) | [Windows SDK](https://github.com/Mesh-Stream/meshstream-p2p-Windows-sdk) | [Online demo](https://demo.meshstream.net/)
+## Features
+
+- HLS, MPEG-DASH and HTTP Range MP4/MP3 through the native SDKs.
+- A shared JavaScript / TypeScript client/session API for Android and iOS.
+- Preload, playback position/buffer updates, peer events and P2P/CDN statistics.
+- npm installation, native autolinking and a `react-native-video` example app.
+
+Media decoding and format support depend on your chosen player and platform. P2P availability depends on network conditions and peers with matching content.
 
 ## Requirements
 
@@ -151,3 +158,12 @@ Updating the React Native package does not implicitly upgrade either native SDK.
 - iOS resolves the public `MeshStreamKit 1.0.10` CocoaPod.
 
 Both bridges maintain client/session isolation. Closing a client only closes its own sessions and never interrupts another React Native player in the same process.
+
+## Other MeshStream SDKs
+
+- [Web](https://github.com/Mesh-Stream/meshstream-p2p-web-sdk): JavaScript / TypeScript, WebRTC and browser players.
+- [iOS / macOS](https://github.com/Mesh-Stream/meshstream-p2p-ios-sdk): MeshStreamKit, Swift / Objective-C, SPM and CocoaPods.
+- [Android](https://github.com/Mesh-Stream/meshstream-p2p-android-sdk): Kotlin / Java, Maven and Media3 / ExoPlayer.
+- [Windows](https://github.com/Mesh-Stream/meshstream-p2p-Windows-sdk): C / C++ API for Windows 10 / 11 x64.
+- [uni-app](https://github.com/Mesh-Stream/meshstream-p2p-uniapp-sdk): UTS / JavaScript plugin for iOS and Android apps.
+- [Flutter](https://github.com/Mesh-Stream/meshstream-p2p-flutter-sdk): Dart plugin for iOS / Android with video_player examples.
