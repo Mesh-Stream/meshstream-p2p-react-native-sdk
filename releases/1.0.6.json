@@ -46,12 +46,24 @@
     "exampleTestsPassed": 5,
     "typecheck": "passed",
     "npmPack": "passed",
-    "p2pTransfer": "not-verified"
+    "p2pTransfer": "not-verified",
+    "publicExactVersionInstall": "passed",
+    "publicArchiveMatchesCandidate": true,
+    "publicIndependentConsumerTypes": "passed",
+    "publicExampleTestsPassed": 5,
+    "publicAndroidDebugReleaseBuild": "passed",
+    "publicIOSSimulatorReleaseBuild": "passed",
+    "publicIOSSimulatorCdnPlaybackAndEvents": "passed",
+    "publicIOSSimulatorClose": "passed"
   },
   "publication": {
-    "status": "not-published"
+    "status": "published",
+    "channel": "npm",
+    "version": "1.0.6",
+    "date": "2026-11-09",
+    "url": "https://www.npmjs.com/package/react-native-meshstream/v/1.0.6"
   },
-  "status": "local-candidate",
+  "status": "published",
   "artifact": {
     "filename": "react-native-meshstream-1.0.6.tgz",
     "sha256": "87200735d66b06b2907b5b3c963480cde974915821a7cfac7a5b17212cdb51fd",
