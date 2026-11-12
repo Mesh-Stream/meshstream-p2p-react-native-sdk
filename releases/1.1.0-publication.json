@@ -1,0 +1,22 @@
+{
+  "package": "react-native-meshstream",
+  "version": "1.1.0",
+  "published": "2026-11-12",
+  "channel": "npm",
+  "artifact": {
+    "url": "https://registry.npmjs.org/react-native-meshstream/-/react-native-meshstream-1.1.0.tgz",
+    "bytes": 27516,
+    "sha256": "a3951501dc10185dcaa3a576338dba771547bd350303a92623f26479c57d9d5a",
+    "npmIntegrity": "sha512-kKbta/MFGkV363uW9IvMOTwtohXqmJ8p+KdEKMlI1rOB0ejHTQwJQEetg64Maq/4NihRi1JXKqHhxOHmVxo84Q=="
+  },
+  "nativeVersions": {
+    "android": "1.1.0",
+    "ios": "1.1.0"
+  },
+  "gitTag": "1.1.0",
+  "gitTagRevision": "008c21049afa2d913c507631c0f55ecded9201fa",
+  "verification": {
+    "publicExactVersionInstall": true,
+    "downloadChecksumVerified": true
+  }
+}
