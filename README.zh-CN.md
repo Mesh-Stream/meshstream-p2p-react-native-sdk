@@ -38,12 +38,12 @@ Android 依赖包含 `armeabi-v7a`、`arm64-v8a`、`x86` 和 `x86_64`，可用�
 - 插件 Android 声明下限为 API 21，iOS 为 15+；应用还需满足 React Native 和播放器要求。示例使用 React Native 0.76.9，需要 Android API 24 及以上、iOS 15.1 及以上。
 - 已启用对应目标平台的 MeshStream SDK Key
 
-当前 npm 版本为 `1.0.6`；双端原生 SDK 均为 `1.0.10`。
+当前 npm 版本为 `1.1.0`；双端原生 SDK 均为 `1.1.0`。
 
 ## 安装
 
 ```bash
-npm install --save-exact react-native-meshstream@1.0.6
+npm install --save-exact react-native-meshstream@1.1.0
 ```
 
 在 React Native Android 工程的 `android/settings.gradle` 中，向 `dependencyResolutionManagement.repositories` 添加 MeshStream Maven 仓库：
@@ -59,7 +59,7 @@ repositories {
 }
 ```
 
-接入 iOS 时，bridge 会解析已发布的 `MeshStreamKit 1.0.10` CocoaPod。安装 npm 包后，请在应用的 `ios` 目录执行 `pod install --repo-update` 并重新编译原生工程。
+接入 iOS 时，bridge 会解析已发布的 `MeshStreamKit 1.1.0` CocoaPod。安装 npm 包后，请在应用的 `ios` 目录执行 `pod install --repo-update` 并重新编译原生工程。
 
 以下示例使用 `react-native-video`；若工程尚未安装播放器，添加与当前 React Native 兼容的版本，再重新执行 iOS Pod 安装。
 
@@ -194,7 +194,7 @@ subscription.remove();
 ```ts
 const sdkVersion = await MeshStream.getSdkVersion();
 const version = await MeshStream.getVersion();
-// { packageVersion: '1.0.6', nativeSdkVersion: '1.0.10', platform: 'android' }
+// { packageVersion: '1.1.0', nativeSdkVersion: '1.1.0', platform: 'android' }
 ```
 
 事件类型包括：`peerCountChanged`、`playbackPrepared`、`p2pReady`、`p2pUnavailable`、`statistics`、`cdnFallback`、`trackerError`、`peerConnectError`。
