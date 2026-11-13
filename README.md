@@ -38,12 +38,12 @@ The Android dependency includes `armeabi-v7a`, `arm64-v8a`, `x86`, and `x86_64` 
 - Plugin Android declaration: API 21+; iOS: 15+. The host must also meet its React Native and player requirements. The bundled example uses React Native 0.76.9 and requires Android API 24+ and iOS 15.1+.
 - MeshStream SDK key enabled for the target platform
 
-Current npm version: `1.1.0`; both native SDK versions: `1.1.0`.
+Current npm version: `1.1.1`; both native SDK versions: `1.1.1`.
 
 ## Install
 
 ```bash
-npm install --save-exact react-native-meshstream@1.1.0
+npm install --save-exact react-native-meshstream@1.1.1
 ```
 
 For Android, add the MeshStream Maven repository to `android/settings.gradle` in the app's `dependencyResolutionManagement.repositories` block:
@@ -59,7 +59,7 @@ repositories {
 }
 ```
 
-For iOS, the bridge resolves the published `MeshStreamKit 1.1.0` CocoaPod. After installation, run `pod install --repo-update` from the app's `ios` directory and rebuild the native app.
+For iOS, the bridge resolves the published `MeshStreamKit 1.1.1` CocoaPod. After installation, run `pod install --repo-update` from the app's `ios` directory and rebuild the native app.
 
 The example below uses `react-native-video`. If your app has no player dependency yet, install a version compatible with your React Native release, then repeat iOS Pod installation.
 
@@ -194,7 +194,7 @@ Read version information before creating a client when attaching diagnostics to 
 ```ts
 const sdkVersion = await MeshStream.getSdkVersion();
 const version = await MeshStream.getVersion();
-// { packageVersion: '1.1.0', nativeSdkVersion: '1.1.0', platform: 'android' }
+// { packageVersion: '1.1.1', nativeSdkVersion: '1.1.1', platform: 'android' }
 ```
 
 Available event types: `peerCountChanged`, `playbackPrepared`, `p2pReady`, `p2pUnavailable`, `statistics`, `cdnFallback`, `trackerError`, and `peerConnectError`.
