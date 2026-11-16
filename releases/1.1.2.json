@@ -40,6 +40,7 @@
     "iosCocoaPods": "passed",
     "iosSimulatorXCTest": "passed",
     "androidExampleBuild": "passed",
-    "deviceAcceptance": "pending"
+    "deviceAcceptance": "pending",
+    "npmPublicInstall": "pending: registry metadata and latest tag are visible; tarball CDN returned 404 during propagation check"
   }
 }
