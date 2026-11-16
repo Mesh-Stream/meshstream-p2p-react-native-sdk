@@ -41,6 +41,9 @@
     "iosSimulatorXCTest": "passed",
     "androidExampleBuild": "passed",
     "deviceAcceptance": "pending",
+    "androidDevice": "passed: ARM64 Android 13; public 1.1.2 example built, installed and launched",
+    "iosSimulator": "passed: iPhone 17 simulator; public 1.1.2 Pod resolved and app launched",
+    "iosDevice": "blocked: Demo bundle ID has no matching development provisioning profile",
     "npmPublicInstall": "passed: npm registry exact 1.1.2 install; tarball SHA-256 and integrity match the release artifact"
   }
 }
