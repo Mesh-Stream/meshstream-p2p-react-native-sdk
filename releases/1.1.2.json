@@ -1,0 +1,43 @@
+{
+  "package": "react-native-meshstream",
+  "version": "1.1.2",
+  "nativeDependencies": {
+    "android": {
+      "maven": "io.meshstream:meshstream-android-sdk",
+      "version": "1.1.2",
+      "minSdk": 21,
+      "abi": [
+        "armeabi-v7a",
+        "arm64-v8a",
+        "x86",
+        "x86_64"
+      ],
+      "aarSha256": "cf681e49753ee812ff52ff8dfc564cca502f87c51e602816fe94b8c4f017deff"
+    },
+    "ios": {
+      "pod": "MeshStreamKit",
+      "version": "1.1.2",
+      "runtimeVersion": "1.1.2",
+      "minimumOS": "iOS 15.0",
+      "zipSha256": "4d26ea4fd4a904de93289d51f0f804ebca41ffd89644f69240d4f068233c4f5a"
+    }
+  },
+  "compatibility": {
+    "effectiveMinimum": "max(plugin, framework/runtime, player)",
+    "exampleMinSdk": 24
+  },
+  "publication": {
+    "npm": "pending",
+    "version": "1.1.2",
+    "artifactSha256": "2cc5b7b0b9f14ab70ac0ff0bcde5487e5856c18c65a98c2f88967c3f30ae5c1b",
+    "artifactBytes": 27615,
+    "integrity": "sha512-jVTETRGVxzXtQzgkNWBzSFxgO++AjiWd/ERsXCKSBeONDEGdkZc0yYeE81uK4E7hXfOCFJGCNXHzR+CYvCg4Og=="
+  },
+  "validation": {
+    "androidMaven": "passed",
+    "iosCocoaPods": "passed",
+    "iosSimulatorXCTest": "passed",
+    "androidExampleBuild": "passed",
+    "deviceAcceptance": "pending"
+  }
+}
