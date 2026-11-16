@@ -27,11 +27,13 @@
     "exampleMinSdk": 24
   },
   "publication": {
-    "npm": "pending",
+    "npm": "published",
     "version": "1.1.2",
+    "publishedAt": "2026-11-17",
     "artifactSha256": "2cc5b7b0b9f14ab70ac0ff0bcde5487e5856c18c65a98c2f88967c3f30ae5c1b",
     "artifactBytes": 27615,
-    "integrity": "sha512-jVTETRGVxzXtQzgkNWBzSFxgO++AjiWd/ERsXCKSBeONDEGdkZc0yYeE81uK4E7hXfOCFJGCNXHzR+CYvCg4Og=="
+    "integrity": "sha512-jVTETRGVxzXtQzgkNWBzSFxgO++AjiWd/ERsXCKSBeONDEGdkZc0yYeE81uK4E7hXfOCFJGCNXHzR+CYvCg4Og==",
+    "registryTarball": "https://registry.npmjs.org/react-native-meshstream/-/react-native-meshstream-1.1.2.tgz"
   },
   "validation": {
     "androidMaven": "passed",
