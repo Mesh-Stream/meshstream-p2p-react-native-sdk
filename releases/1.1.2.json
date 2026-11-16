@@ -41,6 +41,6 @@
     "iosSimulatorXCTest": "passed",
     "androidExampleBuild": "passed",
     "deviceAcceptance": "pending",
-    "npmPublicInstall": "pending: registry metadata and latest tag are visible; tarball CDN returned 404 during propagation check"
+    "npmPublicInstall": "passed: npm registry exact 1.1.2 install; tarball SHA-256 and integrity match the release artifact"
   }
 }
